@@ -114,98 +114,100 @@
             </table>
 
 
-                <div>
+            <div>
 
-                    <h2 align="center">Task 5: "Pixel sampling" for texture mapping</h2>
+                <h2 align="center">Task 5: "Pixel sampling" for texture mapping</h2>
 
-                    <p align="justify">
-                        Texture sampling is similar to pixel sampling in rasterization from Task 1 to 4. However, the challenge in texture mapping is determining which pixel in the texture to sample for a given screenspace position. This is because the screenspace-texturespace relationship can be non-linear, making it unclear which texture value to use. We implemented the mapping from first sampling a pixel in the screen-space. Then we mapped it into the texture space through matrix multiplication. We then pass the mapped texture space into the sampling function to get the texels value back for rasterization.
-                        <br />
-                        <br />
-                        Nearest-neighbor and bilinear sampling are two methods used to address this issue. Nearest-neighbor sampling involves rescaling the UV coordinates and selecting the closest texel, while bilinear sampling, like convoluting with a box filter, involves performing a series of linear interpolations between the four nearest texels. Bilinear sampling produces better results for high-frequency content, such as the latitude and longtitude lines on the map. Magnifying the screen space relative to the texture space results in noticeable differences between the two methods, with nearest-neighbor producing pixelated images and bilinear sampling preserving information about the surroundings.
-                        <br />
-                        <br />
-                        To implement nearest-neighbor pixel sampling for a given UV normalized coordinate, we rescaled the normalized coordinate by the texture map dimensions and identified the closest texel. On the other hand, to implement bilinear sampling we located the four nearest texels in the texture map and performed a series of linear interpolations over 2 axes.
-                        <br />
-                        <br />
-                        <b>Figure 5</b> demonstrates differences between these two pixel sampling methods. The zoomed view of content in the texture mapping illustrate how bilinear sampling surpasses nearest-neighbor. The latitude lines on the map were more consistent in the bilinear sampling images.
+                <p align="justify">
+                    Texture sampling is similar to pixel sampling in rasterization from Task 1 to 4. However, the challenge in texture mapping is determining which pixel in the texture to sample for a given screenspace position. This is because the screenspace-texturespace relationship can be non-linear, making it unclear which texture value to use. We implemented the mapping from first sampling a pixel in the screen-space. Then we mapped it into the texture space through matrix multiplication. We then pass the mapped texture space into the sampling function to get the texels value back for rasterization.
+                    <br />
+                    <br />
+                    Nearest-neighbor and bilinear sampling are two methods used to address this issue. Nearest-neighbor sampling involves rescaling the UV coordinates and selecting the closest texel, while bilinear sampling, like convoluting with a box filter, involves performing a series of linear interpolations between the four nearest texels. Bilinear sampling produces better results for high-frequency content, such as the latitude and longtitude lines on the map. Magnifying the screen space relative to the texture space results in noticeable differences between the two methods, with nearest-neighbor producing pixelated images and bilinear sampling preserving information about the surroundings.
+                    <br />
+                    <br />
+                    To implement nearest-neighbor pixel sampling for a given UV normalized coordinate, we rescaled the normalized coordinate by the texture map dimensions and identified the closest texel. On the other hand, to implement bilinear sampling we located the four nearest texels in the texture map and performed a series of linear interpolations over 2 axes.
+                    <br />
+                    <br />
+                    <b>Figure 5</b> demonstrates differences between these two pixel sampling methods. The zoomed view of content in the texture mapping illustrate how bilinear sampling surpasses nearest-neighbor. The latitude lines on the map were more consistent in the bilinear sampling images.
 
-                    </p>
+                </p>
 
-                    <div align="center">
-                        <table style="width=100%">
-                            <tr>
-                                <td>
-                                    <img src="images/T5_sr1_nearest.png" align="middle" width="400px" />
-                                    <figcaption align="center"><b>Figure 5a:<b> Nearest-Neighbor(sample rate = 1).</b></b></figcaption>
-                                </td>
-                                <td>
-                                    <img src="images/T5_sr1_bilinear.png" align="middle" width="400px" />
-                                    <figcaption align="center"><b>Figure 5b:<b> Bilinear (sample rate = 1).</b></b></figcaption>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/T5_sr16_nearest.png" align="middle" width="400px" />
-                                    <figcaption align="center"><b>Figure 5c:<b> Nearest-Neighbor (sample rate = 16).</b></b></figcaption>
-                                </td>
-                                <td>
-                                    <img src="images/T5_sr16_bilinear.png" align="middle" width="400px" />
-                                    <figcaption align="center"><b>Figure 5b:<b>  Bilinear (sample rate = 16).</b></b></figcaption>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-
-                    <h2 align="center">Task 6: "Level sampling" with mipmaps for texture mapping</h2>
-                    <p align="justify">
-                        Level sampling is important in Mipmaps to address issues with minification, where a single pixel on the screen covers several texels in texture space. This presents a challenge for creating coherent visuals.
-                        If the texture has high-frequency content in a minified region, moving by a single pixel can result in a texel with unrelated color content. Mipmaps solve this by creating a collection of downsampled textures from which sensible texel values can be passed back to screen space pixels.
-                        To determine the appropriate Mipmap level for a given pixel in screen space, we use level sampling. We implemented this by using the columns of the map's Jacobian matrix, which provide an approximate measure of the local pixel footprint in texture space.
-                        This information helps us determine which Mipmap level is best suited for coloring a certain part of screenspace based on the degree of minification induced by the map at that local region.
-                        <br />
-                        <br />
-                        In term of performance, pixel sampling is the fastest but produces the poorest antialiasing quality. Level sampling offers better antialiasing quality but requires more memory to store Mipmap levels. The number of samples per pixel provides the best antialiasing quality but requires the most memory and computation time. The optimal technique to use depends on the requirements of the specific application, such as the desired rendering speed, memory usage, and the level of antialiasing quality required.
-                        Anectodally, we actually ran into a memory issue with one of the texture images as we ramped up the sampling rate and while keeping lsm at L_NEAREST and psm at P_LINEAR.
-                        <b>Figure 6</b> shows that combining nearest-neighbor sampling with level sampling improves render quality through antialiasing.
-                    </p>
-
-                    <div align="center">
-                        <table style="width=100%">
-                            <tr>
-                                <td>
-                                    <img src="images/Task6_L0_Nearest.png" align="middle" width="400px" />
-                                    <figcaption align="center"><b>Figure 6a:<b> LSM = Level 0, PSM = Nearest.</b></b></figcaption>
-                                </td>
-                                <td>
-                                    <img src="images/Task6_L0_Bilinear.png" align="middle" width="400px" />
-                                    <figcaption align="center"><b>Figure 6b:<b> LSM = Level 0, PSM = Bilinear.</b></b></figcaption>
-                                </td>
-                            </tr>
-                            <br />
-                            <tr>
-                                <td>
-                                    <img src="images/Task6_Nearest_Nearest.png" align="middle" width="400px" />
-                                    <figcaption align="center"><b>Figure 6c:<b> LSM = Nearest, PSM = Nearest.</b></b></figcaption>
-                                </td>
-                                <td>
-                                    <img src="images/Task6_Nearest_Bilinear.png" align="middle" width="400px" />
-                                    <figcaption align="center"><b>Figure 6d:<b> LSM = Nearest, PSM = Bilinear.</b></b></figcaption>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <h2 align="center">Part 7: Draw something interesting!</h2>
-                    <div align="center">
-                        <table style="width=100%">
-                        </table>
-                    </div>
-
+                <div align="center">
+                    <table style="width=100%">
+                        <tr>
+                            <td>
+                                <img src="images/T5_sr1_nearest.png" align="middle" width="400px" />
+                                <figcaption align="center"><b>Figure 5a:<b> Nearest-Neighbor(sample rate = 1).</b></b></figcaption>
+                            </td>
+                            <td>
+                                <img src="images/T5_sr1_bilinear.png" align="middle" width="400px" />
+                                <figcaption align="center"><b>Figure 5b:<b> Bilinear (sample rate = 1).</b></b></figcaption>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="images/T5_sr16_nearest.png" align="middle" width="400px" />
+                                <figcaption align="center"><b>Figure 5c:<b> Nearest-Neighbor (sample rate = 16).</b></b></figcaption>
+                            </td>
+                            <td>
+                                <img src="images/T5_sr16_bilinear.png" align="middle" width="400px" />
+                                <figcaption align="center"><b>Figure 5b:<b>  Bilinear (sample rate = 16).</b></b></figcaption>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
-            </table></div>
+
+                <h2 align="center">Task 6: "Level sampling" with mipmaps for texture mapping</h2>
+                <p align="justify">
+                    Level sampling is important in Mipmaps to address issues with minification, where a single pixel on the screen covers several texels in texture space. This presents a challenge for creating coherent visuals.
+                    If the texture has high-frequency content in a minified region, moving by a single pixel can result in a texel with unrelated color content. Mipmaps solve this by creating a collection of downsampled textures from which sensible texel values can be passed back to screen space pixels.
+                    To determine the appropriate Mipmap level for a given pixel in screen space, we use level sampling. We implemented this by using the columns of the map's Jacobian matrix, which provide an approximate measure of the local pixel footprint in texture space.
+                    This information helps us determine which Mipmap level is best suited for coloring a certain part of screenspace based on the degree of minification induced by the map at that local region.
+                    <br />
+                    <br />
+                    In term of performance, pixel sampling is the fastest but produces the poorest antialiasing quality. Level sampling offers better antialiasing quality but requires more memory to store Mipmap levels. The number of samples per pixel provides the best antialiasing quality but requires the most memory and computation time. The optimal technique to use depends on the requirements of the specific application, such as the desired rendering speed, memory usage, and the level of antialiasing quality required.
+                    Anectodally, we actually ran into a memory issue with one of the texture images as we ramped up the sampling rate and while keeping lsm at L_NEAREST and psm at P_LINEAR.
+                    <b>Figure 6</b> shows that combining nearest-neighbor sampling with level sampling improves render quality through antialiasing.
+                </p>
+
+                <div align="center">
+                    <table style="width=100%">
+                        <tr>
+                            <td>
+                                <img src="images/Task6_L0_Nearest.png" align="middle" width="400px" />
+                                <figcaption align="center"><b>Figure 6a:<b> LSM = Level 0, PSM = Nearest.</b></b></figcaption>
+                            </td>
+                            <td>
+                                <img src="images/Task6_L0_Bilinear.png" align="middle" width="400px" />
+                                <figcaption align="center"><b>Figure 6b:<b> LSM = Level 0, PSM = Bilinear.</b></b></figcaption>
+                            </td>
+                        </tr>
+                        <br />
+                        <tr>
+                            <td>
+                                <img src="images/Task6_Nearest_Nearest.png" align="middle" width="400px" />
+                                <figcaption align="center"><b>Figure 6c:<b> LSM = Nearest, PSM = Nearest.</b></b></figcaption>
+                            </td>
+                            <td>
+                                <img src="images/Task6_Nearest_Bilinear.png" align="middle" width="400px" />
+                                <figcaption align="center"><b>Figure 6d:<b> LSM = Nearest, PSM = Bilinear.</b></b></figcaption>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h2 align="center">Part 7: Draw something interesting!</h2>
+                <div align="center">
+                    <table style="width=100%">
+                    </table>
+                </div>
+
+            </div>
+
+            </table>
+            <h3> <a href="https://tojtt.github.io/proj-webpage-template/proj1/index.html">Github Page Link </a>   </h3>
+        </div>
 
     </div>
 
