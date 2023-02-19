@@ -1,11 +1,19 @@
-# CS184 Project Webpage Repo
+# Computer Graphics Projects
 
-The goal of this repo is to provide a template from which students can host CS184 project writeups. 
+This repo showcases projects that I worked on in CS184: Computer Graphics at UC Berkeley. 
 
-## Enabling Github Pages
+## Project Webpages
 
-To enable Github pages, go to the 'Settings' tab then click on 'Pages'. Under 'Source', make sure that the branch is set to 'master' and the folder is set to 'root'. If these settings are correct, navigating to the github page link should render index.html
+There are 5 folders, one for each project. Each contains an index.html file. When the links from the mainpage are clicked, these files will be loaded, so edit these to add your project webpages. 
 
-## Adding Project Webpages
+Below are direct links to the projects for convenience:
 
-There are 5 folders, one for each project. Each contains an index.html file. When the links from the mainpage are clicked, these files will be loaded, so edit these to add your project webpages.
+Project 1 page
+
+Project 2 page
+
+Project 3 page
+
+Project 4 page
+
+Project 5 page
