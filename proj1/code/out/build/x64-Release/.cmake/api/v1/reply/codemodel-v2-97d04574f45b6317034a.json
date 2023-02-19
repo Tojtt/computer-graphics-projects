@@ -1,0 +1,202 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-RelWithDebInfo-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "CGL",
+					"childIndexes" : 
+					[
+						2,
+						3
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-CGL-RelWithDebInfo-11ee1ce43757d7d9e5f1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "CGL",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "CGL/deps/glew",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-CGL.deps.glew-RelWithDebInfo-d42652b4f5e02a19541f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "CGL/deps/glew",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "CGL/deps/glfw",
+					"childIndexes" : 
+					[
+						4
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-CGL.deps.glfw-RelWithDebInfo-b1678c08a49dcfeded57.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "CGL/deps/glfw",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "CGL/deps/glfw/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-CGL.deps.glfw.src-RelWithDebInfo-a162efa96a95cc4aeccd.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 2,
+					"source" : "CGL/deps/glfw/src",
+					"targetIndexes" : 
+					[
+						3
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Assignment1",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						2
+					],
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "CGL",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						2
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3,
+						4
+					],
+					"name" : "GLFW",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "CGL::@0a5983fe6cfcc4d580bd",
+					"jsonFile" : "target-CGL-RelWithDebInfo-3c7f12e23efee8bde949.json",
+					"name" : "CGL",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "draw::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-draw-RelWithDebInfo-2c62f22dc4873e06e823.json",
+					"name" : "draw",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "glew::@7bafe57aeea771ebdd0a",
+					"jsonFile" : "target-glew-RelWithDebInfo-c6d022836d735faa2faf.json",
+					"name" : "glew",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "glfw::@3a9041b068fa7b25e39f",
+					"jsonFile" : "target-glfw-RelWithDebInfo-c930cb9fab38344945f9.json",
+					"name" : "glfw",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "uninstall::@3efd33267113cda152d1",
+					"jsonFile" : "target-uninstall-RelWithDebInfo-1be6a2ae42f58a57a044.json",
+					"name" : "uninstall",
+					"projectIndex" : 2
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Game/p1-rasterizer-sp23-exchangers/out/build/x64-Release",
+		"source" : "C:/Game/p1-rasterizer-sp23-exchangers"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
