@@ -1,4 +1,4 @@
-The project write-up is at [Project 1: Rasterizer](/proj1/index.html)
+The project write-up is at [Project 1: Rasterizer]((https://tojtt.github.io/computer-graphics-projects/proj1/index.html))
 
 <p>
   <img src="https://cs184.eecs.berkeley.edu/cs184_sp16_content/article_images/3_1.jpg" width="800px" align="middle"/>
