@@ -1,9 +1,3 @@
-cs184/284a    $MG={"o":{"browserRefresh":false,"activeSemester":{"id":8,"tag":"sp23"},"auth":{"profile":{"id":12740771,"username":"Tojtt","avatar\_url":"https://avatars.githubusercontent.com/u/12740771?v=4"},"user":{"id":5387,"sid":3037435596,"email":"hoangto@berkeley.edu","roster\_name":"To, Hoang","role":"student","semester\_id":8,"profile\_id":12740771}},"semester":{"id":8,"tag":"sp23"}},"$$":\[{"l":\["auth","user","created\_at"\],"r":{"type":"Date","value":1673912747000}},{"l":\["auth","user","updated\_at"\],"r":{"type":"Date","value":1673993574000}}\]}
-
-[cs184/284a](/sp23)[policies](/sp23/policies)[staff](/sp23/staff)[readings](/sp23/readings)[resources](/sp23/resources)[comments](/sp23/comments)
-
-[](/auth/logout?r=/sp23)[![](https://avatars.githubusercontent.com/u/12740771?v=4)Tojtt](/sp23/p/Tojtt)
-
 CS184 Assignment 2 Spring 2023
 ==============================
 
