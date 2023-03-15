@@ -3,10 +3,10 @@
 <head>
 	<style>
 		div.padded {
-			padding-top: 0px;
-			padding-right: 100px;
+			padding-top: 0.25in;
+			padding-right: 50px;
 			padding-bottom: 0.25in;
-			padding-left: 100px;
+			padding-left: 50px;
 		}
 	</style>
 	<title>Hoang To and Yihang Zeng | CS 184/284</title>
@@ -52,12 +52,16 @@
 						<img src="./images/Part1/teapot.png" width="360px" />
 						<figcaption align="middle">teapot.dae</figcaption>
 					</td>
+				</tr>
+				
+			</table>
+			<br>
+			<tr>
 					<td align="middle">
 						<img src="./images/Part1/CBspheres_lam.png" width="360px" />
 						<figcaption align="middle">CBspheres_lambertian.dae</figcaption>
 					</td>
-				</tr>
-			</table>
+			</tr>
 		</div>
 
 
@@ -73,11 +77,11 @@
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part2/cow_mesh.png" width="480px" />
+						<img src="./images/Part2/cow_mesh.png" width="360px" />
 						<figcaption align="middle">Naive Bounding Box: Single-axis Splitting</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part2/cow_mesh2.png" width="480px" />
+						<img src="./images/Part2/cow_mesh2.png" width="360px" />
 						<figcaption align="middle">Heuristic Bounding Box: Three-axis Splitting</figcaption>
 					</td>
 				</tr>
@@ -98,19 +102,22 @@
 				<tr>
 					<td align="middle">
 						<img src="./images/Part2/cow.png" width="360px" />
-						<figcaption align="middle">Cow (-t 8 3.4 intersections/ray)</figcaption>
+						<figcaption align="middle">Cow (3.4 intersections/ray)</figcaption>
 					</td>
 					<td align="middle">
 						<img src="./images/Part2/man.png" width="360px" />
-						<figcaption align="middle">Maxplanck (-t 8 4.3 intersections/ray)</figcaption>
-					</td>
-
-					<td align="middle">
-						<img src="./images/Part2/lucy.png" width="360px" />
-						<figcaption align="middle">CBlucy (-t 8 2.4 intersections/ray)</figcaption>
+						<figcaption align="middle">Maxplanck (4.3 intersections/ray)</figcaption>
 					</td>
 				</tr>
+				
 			</table>
+			<br>
+			<tr>
+				<td align="middle">
+					<img src="./images/Part2/lucy.png" width="360px" />
+					<figcaption align="middle">CBlucy (2.4 intersections/ray)</figcaption>
+				</td>
+			</tr>
 		</div>
 
 
@@ -133,11 +140,11 @@
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part3/CBbunny_H_16_8.png" width="480px" />
+						<img src="./images/Part3/CBbunny_H_16_8.png" width="360px" />
 						<figcaption align="middle">16 samples/pixel Uniform Hemisphere Sampling</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part3/CBbunny_16_8.png" width="480px" />
+						<img src="./images/Part3/CBbunny_16_8.png" width="360px" />
 						<figcaption align="middle">16 samples/pixel Importance Sampling</figcaption>
 					</td>
 				</tr>
@@ -155,21 +162,21 @@
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part3/CBbunny_1_1.png" width="480px" />
+						<img src="./images/Part3/CBbunny_1_1.png" width="360px" />
 						<figcaption align="middle">1 light ray and 1 sample/pixel</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part3/CBbunny_1_4.png" width="480px" />
+						<img src="./images/Part3/CBbunny_1_4.png" width="360px" />
 						<figcaption align="middle">1 light ray and 4 sample/pixel</figcaption>
 					</td>
 				</tr>
 				<tr>
 					<td align="middle">
-						<img src="./images/Part3/CBbunny_1_16.png" width="480px" />
+						<img src="./images/Part3/CBbunny_1_16.png" width="360px" />
 						<figcaption align="middle">1 light ray and 16 sample/pixel</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part3/CBbunny_1_64.png" width="480px" />
+						<img src="./images/Part3/CBbunny_1_64.png" width="360px" />
 						<figcaption align="middle">1 light ray and 64 sample/pixel</figcaption>
 					</td>
 				</tr>
@@ -192,37 +199,49 @@
 		</ul>
 		Indirect illumination improves the realism of rendered images by accounting for multiple light bounces. This is particularly evident in the color bleeding from the red and blue walls onto the subject, as well as the softer shadowing, when comparing the direct illumination with the global illumination renderings of the bunny shown below. The second row of images isolates the contributions from single-bounce (direct illumination), two-bounce, and three-bounce light paths to emphasize their relative importance. The final image is the sum of these images and the zero-bounce contribution, representing ray paths that travel directly between the area light source and the camera.
 
+		<p style ="font-weight: bold ">Show some images rendered with global (direct and indirect) illumination. Use 1024 samples per pixel.</p>
 
 
 		<div align="center">
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part4/bunny_direct_illumination.png" width="450px" />
-						<figcaption align="middle">Direct Illumination</figcaption>
+						<img src="./images/Part4/bunny_1024_4_5.png" width="360px" />
+						<figcaption align="middle">Bunny -s 1024 -l 4 -m 5</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part4/bunny_indirect_illumination.png" width="450px" />
-						<figcaption align="middle">Global Illumination</figcaption>
+						<img src="./images/Part4/blob_1024_4_5.png" width="360px" />
+						<figcaption align="middle">Blob -s 1024 -l 4 -m 5</figcaption>
 					</td>
 				</tr>
+				
 			</table>
+			<br>
+			<tr>
+				<td align="middle">
+					<img src="./images/Part4/bench_1024_4_5.png" width="360px" />
+					<figcaption align="middle">Bench -s 1024 -l 4 -m 5</figcaption>
+				</td>
+			</tr>
 		</div>
 
+		<p style ="font-weight: bold ">Pick one scene and compare rendered views first with only direct illumination, then only indirect illumination. Use 1024 samples per pixel.</p>
+
+		<p style ="font-weight: bold ">For CBbunny.dae, compare rendered views with max_ray_depth set to 0, 1, 2, 3, and 100 (the -m flag). Use 1024 samples per pixel.</p>
 
 		<div align="center">
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part4/spheres_global_b1.png" width="450px" />
+						<img src="./images/Part4/spheres_global_b1.png" width="360px" />
 						<figcaption align="middle">1st Bounce Contribution</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part4/spheres_global_b2.png" width="450px" />
+						<img src="./images/Part4/spheres_global_b2.png" width="360px" />
 						<figcaption align="middle">2nd Bounce Contribution</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part4/spheres_global_b3.png" width="450px" />
+						<img src="./images/Part4/spheres_global_b3.png" width="360px" />
 						<figcaption align="middle">3rd Bounce Contribution</figcaption>
 					</td>
 				</tr>
@@ -234,7 +253,7 @@
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part4/spheres_global.png" width="450px" />
+						<img src="./images/Part4/spheres_global.png" width="360px" />
 						<figcaption align="middle">Global Illumination</figcaption>
 					</td>
 				</tr>
@@ -255,22 +274,22 @@
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part5/bunny.png" width="480px" />
+						<img src="./images/Part5/bunny.png" width="360px" />
 						<figcaption align="middle">Bunny</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part5/bunny_rate.png" width="480px" />
+						<img src="./images/Part5/bunny_rate.png" width="360px" />
 						<figcaption align="middle">Bunny Sample Rate Map</figcaption>
 					</td>
 				</tr>
 				<tr>
 					<td align="middle">
-						<img src="./images/Part5/spheres.png" width="480px" />
-						<figcaption align="middle">Spheres</figcaption>
+						<img src="./images/Part5/spheres.png" width="360px" />
+						<figcaption align="middle">Banana</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part5/spheres_rate.png" width="480px" />
-						<figcaption align="middle">Spheres Sample rate Map</figcaption>
+						<img src="./images/Part5/spheres_rate.png" width="360px" />
+						<figcaption align="middle">Banana Sample rate Map</figcaption>
 					</td>
 				</tr>
 			</table>
