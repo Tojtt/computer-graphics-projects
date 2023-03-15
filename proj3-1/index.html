@@ -9,46 +9,50 @@
 			padding-left: 100px;
 		}
 	</style>
-	<title>Nico Deshler  |  CS 184</title>
+	<title>Hoang To and Yihang Zeng | CS 184/284</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 </head>
 <body>
 	<br />
 	<h1 align="middle">Assignment 3.1: PathTracer</h1>
-	<h2 align="middle">Nico Deshler</h2>
+	<h2 align="middle">Hoang To and Yihang Zeng</h2>
 
 	<div class="padded">
 		<p>
-			In this project, I developed a radiometrically accurate ray-tracing pipeline for rendering virtual scenes. The pipeline is composed of five parts, each of which contain specific optimizations to improve render efficiency and quality. Overall, these parts, and their effects on the render, are presented in the chronology in which they are executed within the pipeline. The images shown herein attempt to visually demonstrate the role of each step of the render. The differences in render quality and efficiency achieved through the progression of algorithms explored in this project are salient.
+			In this project, we developed a radiometrically accurate ray-tracing pipeline for rendering virtual scenes. The pipeline is composed of five parts, each of which contain specific optimizations to improve render efficiency and quality. Overall, these parts, and their effects on the render, are presented in the chronology in which they are executed within the pipeline. The images shown herein attempt to visually demonstrate the role of each step of the render. The differences in render quality and efficiency achieved through the progression of algorithms explored in this project are salient.
 		</p>
 
 
 		<!-- PART 1-->
 		<h2 align="middle">Part 1: Ray Generation and Scene Intersection</h2>
-		<p><em>Ray Generation:</em></p>
+		<p style ="font-weight: bold ">Walk through the ray generation and primitive intersection parts of the rendering pipeline.</p>
+		
 		<p>
-			To generate a ray, we require an origin coordinate (i.e. the camera position in world space) and a normalized direction vector. To sample every pixel via ray casting, there are three mappings that must occur to determine the proper ray direction for each pixel. Given a pixel coordinate, the first map is from pixel coordinate frame to a normalized coordinate frame achieved essentially by scaling the axes. The second map takes the normalized coordinate frame to the image frame which defines the field-of-view captured in the scene. This is achieved through a combination of scaling and translation perpendicular to the camera�s Z axis. The goal of these first two transformations is to effectively �superimpose� the pixel plane onto the image image so that we know how to draw a ray from the camera origin through the field-of-view for a given pixel. Multiple sampling for a single pixel can be performed by perturbing the ray direction within the extent of the pixel area. Once the ray direction for the pixel is determined, we apply the camera-to-world transformation on this direction vector so that the ray propagates correctly in the scene. The origin of the ray is also translated to match the camera origin.
+			In order to generate a ray, we need two pieces of information: the origin coordinate (which is the camera's position in world space) and a direction vector that has been normalized. When using ray casting to sample every pixel, we need to perform three mappings to determine the appropriate ray direction for each pixel. The first mapping transforms the pixel coordinates into a normalized coordinate frame by scaling the axes. The second mapping takes the normalized coordinate frame and transforms it into the image frame, which defines the field of view captured in the scene. This transformation is accomplished by scaling and translating perpendicular to the camera's Z axis. The goal of these first two transformations is to align the pixel plane with the image plane, allowing us to draw a ray from the camera origin through the field of view for any given pixel. To sample multiple times for a single pixel, we can perturb the ray direction within the bounds of the pixel area. Once the ray direction for the pixel is determined, we apply the camera-to-world transformation to the direction vector so that the ray travels properly through the scene. The origin of the ray is also translated to match the camera's origin.
 		</p>
 		<p>
-		<p><em>Primitive Intersection:</em></p>
-		Determining intersections between rays and primitive geometric objects required using implicit vector definitions of the primitive geometries themselves. Intersection with a triangle was implemented using the Moller-Trumbore Algorithm. In short, this algorithm combines Barycentric coordinates and an implicit definition of a plane to determine whether the intersection point resides inside a triangle primitive. By ensuring that the Barycentric Coordinates were all within the range [0,1], and verifying that the intersection t-value was within the maximum and minimum bounds of the scene, I could confirm an intersection with a triangle primitive. The checks for the sphere intersection were more involved. Firstly, the intersection t-values were identified by solving a quadratic equation using the quadratic root formula. Ensuring that the discriminant in was non-negative served as the first check as this would imply that the solution has at least one real root. If so, then checking if either of the roots of the quadratic fell within the max and minimum bounds was necessary. Finally, I would select the minimum root if both roots satisfy the previous conditions.
+			<p style ="font-weight: bold ">Explain the triangle intersection algorithm you implemented in your own words.
+			</p>
+			To find where rays intersect with triangles, the Moller-Trumbore Algorithm was implemented, which combines Barycentric coordinates and an implicit plane definition to determine if the intersection point is inside the triangle. To confirm an intersection with a triangle primitive, the Barycentric Coordinates were checked to ensure they were within the range [0,1], and the intersection t-value was checked to be within the maximum and minimum bounds of the scene. Sphere intersection checks were more complex. First, the intersection t-values were found by solving a quadratic equation using the quadratic root formula. The discriminant was checked to ensure it was non-negative, indicating the solution had at least one real root. Then, it was checked if either of the roots of the quadratic equation fell within the max and minimum bounds. Finally, the minimum root was selected if both roots satisfied the previous conditions.
 		</p>
+		<p style ="font-weight: bold ">Show images with normal shading for a few small .dae files</p>
+	
 
 		<div align="center">
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part1/1.3/banana.png" width="480px" />
-						<figcaption align="middle">Intersection with Triangle Primitives</figcaption>
+						<img src="./images/Part1/banana.png" width="360px" />
+						<figcaption align="middle">banana.dae</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part1/CBgems.png" width="480px" />
-						<figcaption align="middle">Intersection with Triangle Primitives</figcaption>
+						<img src="./images/Part1/teapot.png" width="360px" />
+						<figcaption align="middle">teapot.dae</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part1/CBspheres_lambertian.png" width="480px" />
-						<figcaption align="middle">Intersection with Sphere Primitives</figcaption>
+						<img src="./images/Part1/CBspheres_lam.png" width="360px" />
+						<figcaption align="middle">CBspheres_lambertian.dae</figcaption>
 					</td>
 				</tr>
 			</table>
@@ -59,23 +63,19 @@
 		<h2 align="middle">Part 2: Bounding Volume Hierarchy</h2>
 
 		<p>
-			The heuristic used here to determine the BVH split point drastically improved the ray-tracing efficiency. For a given BVH node, I first computed the mean 3-dimensional position of the centroids of each primitive contained in the node�s bounding box. This provided three candidate points along which to split either the x, y, or z axis. Subsequently, I computed the cost of splitting each axis at the mean centroid coordinate corresponding to that axis. The cost function was simply defined as the surface area of the bounding boxes for the child nodes resulting from the selected split point multiplied by the number of primitives in each child node. Then I simply selected the split point that yielded the lowest cost. The images below geometrically show the improvement of incorporating a 3-axis heuristic rather than splitting along the mean x-coordinate alone. In general, the bounding boxes encapsulate the primitives more tightly. This reduces the probability that a ray hits the bounding box of a BVH without hitting a primitive. In other words, the density of primitives per bounding box is drastically improved using the 3-axis heuristic described.
+			<p style ="font-weight: bold ">Walk through your BVH construction algorithm. Explain the heuristic you chose for picking the splitting point.</p>
+			The efficiency of ray tracing was greatly enhanced by utilizing a heuristic for determining the BVH split point. To begin with, we calculated the average 3D position of the centroids of all the primitives enclosed in the bounding box of a given BVH node. This enabled us to identify three possible split points along the x, y, and z axes. We created the helpers function that allows us to sort the primitives based on their x, y, x axes. From that, we split the bounding box along the axis that has the greatest distance (e.g. max - min) into two child bounding boxes with equal (give or take) numbers of primitives. The images below illustrate the 3-axis heuristic bounding boxes, making them more tightly encompass the primitives. As a result, the likelihood of a ray striking the bounding box of a BVH but not hitting a primitive was reduced, and the density of primitives per bounding box was significantly enhanced.
 		</p>
-		<p>
-			I would also like to justify the choice of using the mean position as the split point rather than the median. There are two factors influencing this decision. First, for a general ray-tracer, we would like it to work well without requiring any a-priori information about the 3D distribution of primitives. Thus, a reasonable assumption is that for an arbitrary scene, the probability of finding a primitive at any point 3D space follows a uniform distribution. On average, this assumption will be true for the space of all possible 3D scenes and thus provides a BVH subdivision scheme that is robust to a wide variety of scenes. Under the assumption of a uniformly distributed set of primitives, the mean centroid location and the median centroid location along the x, y, and z axes are approximately equal. Thus, over many renders the BVH tree will be balanced. Second, implementing the median position split requires sorting the primitives along each axis first. Given the format of the skeleton code, this would have required running a sort at each step in the recursion thus increasing the time cost for generating the BVH with little improvement in the tree balance given the uniform primitive distribution assumption above.
-		</p>
-		<p>
-			The impact of a BVH on computational efficiency is immense. The cow rendering below completed after 38.1913 seconds without the BVH compared to 0.0183 seconds with the BVH. Moroever, the average number of ray intersection tests was approximately 942 without the BVH compared to only 6 interesction tests with the BVH implemented. The benefits of this organization of the primitives also stems from its appealing computational complexity. Without using a BVH, the average number of interesction tests per ray is O(n) while for a BVH the computational complexity is O(logn) where n represents the number of primitives in the scene. This means that mesh complexity and resolution can be scaled without seriously impacting the rendering time.
-		</p>
+
 		<div align="center">
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part2/2.1/naive_BBox.png" width="480px" />
+						<img src="./images/Part2/cow_mesh.png" width="480px" />
 						<figcaption align="middle">Naive Bounding Box: Single-axis Splitting</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part2/2.1/heuristic_BBox.png" width="480px" />
+						<img src="./images/Part2/cow_mesh2.png" width="480px" />
 						<figcaption align="middle">Heuristic Bounding Box: Three-axis Splitting</figcaption>
 					</td>
 				</tr>
@@ -83,21 +83,29 @@
 		</div>
 
 
+		<p>
+			<p style ="font-weight: bold ">Compare rendering times on a few scenes with moderately complex geometries with and without BVH acceleration. Present your results in a one-paragraph analysis.</p>
+			The computational efficiency of rendering is significantly improved with the implementation of a BVH. For example, the rendering of the cow below was completed in 38.1913 seconds without the BVH, compared to just 0.1249 seconds with the BVH. In addition, the average number of ray intersection tests was approximately 942 without the BVH, compared to only 3.4 intersection tests with the BVH. The BVH approach is attractive due to its lower computational complexity. Without the BVH, the average number of intersection tests per ray is O(n), while with a BVH, the computational complexity is O(logn), where n is the number of primitives in the scene. This enables the scaling of mesh complexity and resolution without significantly affecting the rendering time.
+		</p>
+
+		<p style ="font-weight: bold ">Show images with normal shading for a few large .dae files that you can only render with BVH acceleration.</p>
+	
+
 		<div align="center">
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part2/2.2,2.3/planck_32raysamps.png" width="480px" />
-						<figcaption align="middle"></figcaption>
+						<img src="./images/Part2/cow.png" width="360px" />
+						<figcaption align="middle">Cow (-t 8 3.4 intersections/ray)</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part2/2.2,2.3/cow_32raysamps.png" width="480px" />
-						<figcaption align="middle"></figcaption>
+						<img src="./images/Part2/man.png" width="360px" />
+						<figcaption align="middle">Maxplanck (t-8 4.3 intersections/ray)</figcaption>
 					</td>
 
 					<td align="middle">
-						<img src="./images/Part2/2.2,2.3/CBlucy_32raysamps.png" width="480px" />
-						<figcaption align="middle"></figcaption>
+						<img src="./images/Part2/lucy.png" width="360px" />
+						<figcaption align="middle">CBlucy (t -8 2.4 intersections/ray)</figcaption>
 					</td>
 				</tr>
 			</table>
@@ -107,56 +115,60 @@
 		<!-- PART 3-->
 		<h2 align="middle">Part 3: Direct Illumination</h2>
 		<p>
-			Direct Lighting considers the illumination produced by single-bounce light rays (i.e. rays that originate at the light source and bounce one time or less on the scene objects before arriving at the image plane). Two implementations for direct lighting were explored in this project: Uniform Hemisphere sampling and Importance sampling. Fundamentally, these implementations differ in the way that they sample the incident light ray directions for approximating the reflection equation using Monte-Carlo integration. For both implementations, we consider the inverse light path of a ray starting at the camera and flowing into the scene. Upon intersecting an object in the scene, the radiance that the camera would observe leaving this intersection point depends on the Bidirectional Radiance Distribution Function (BRDF) of the object�s surface and the irradiance arriving at the intersection point. In the Monte-Carlo estimate, we sample several fleeting ray directions in the object coordinate space and propagate new rays in these directions until they reach a light source. If they are obstructed, they are considered shadow rays and contribute nothing to the integral. With Uniform Hemisphere sampling, the direction of the explored rays is not guaranteed to point towards the light source. Hence many of the explored rays have no chance of contributing nothing to the reflection equation integral. In contrast, explored rays generated through importance sampling are guaranteed to point in the direction of the light source. These rays are only discounted if there is an obstruction so the overall irradiance is characterized better with the same number of samples.
+			<p style ="font-weight: bold ">Walk through both implementations of the direct lighting function.<p>
+				In this project, direct lighting refers to the calculation of illumination produced by light rays that bounce one time or less on scene objects before arriving at the image plane. We explored two approaches to direct lighting: Uniform Hemisphere sampling and Importance sampling. These methods differ in how they sample the incident light ray directions for approximating the reflection equation using Monte-Carlo integration. In both approaches, we consider the inverse light path of a ray originating at the camera and entering the scene. When the ray intersects an object in the scene, the radiance that the camera observes leaving this point of intersection depends on the Bidirectional Radiance Distribution Function (BRDF) of the object's surface and the irradiance arriving at that point.
+
+				To estimate the Monte-Carlo integral, we sample several ray directions in the object coordinate space and propagate new rays in those directions until they reach a light source. If the rays are obstructed, they are considered shadow rays and do not contribute to the integral. With Uniform Hemisphere sampling, the direction of the sampling rays is not guaranteed to point towards the light source. Therefore, many of the explored rays may not contribute anything to the reflection equation integral.
+				
+				In contrast, Importance sampling generates sampling rays that are guaranteed to point towards the light source. These rays are only excluded if there is an obstruction, thus better characterizing the overall irradiance with the same number of samples.
 		</p>
 		<p>
 			In this project, we have only implemented a BRDF for diffuse Lambertian reflection. Hence, the BRDF is for diffuse surfaces is independent of the incident and outgoing ray directions. Therefore, the only terms in the reflection integral that do depend on the incident ray direction are L, the incident radiance, and the Lambertian cosine factor. These quantities were thus computed once the ray direction in object space was sampled.
 		</p>
-		<p>
-			The direct illumination images shown below compare renders involving the Uniform Hemisphere sampling and Importance sampling techniques described previously for different numbers of pixel samples and light samples. Noise in the renders is substantially reduced when using importance sampling. This demonstrates the effectiveness of the importance sampling technique in producing drastically higher render quality for the same number of samples.
-		</p>
-		<h3 align="middle">Uniform Hemisphere Sampling Renders</h3>
+
+		<p style ="font-weight: bold ">Show some images rendered with both implementations of the direct lighting function.</p>
 		<div align="center">
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part3/3.3/CBbunny_H_16_8.png" width="350px" />
-						<figcaption align="middle">16 samples/pixel</figcaption>
+						<img src="./images/Part3/CBbunny_H_16_8.png" width="480px" />
+						<figcaption align="middle">16 samples/pixel Uniform Hemisphere Sampling</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part3/3.3/CBbunny_H_64_32.png" width="350px" />
-						<figcaption align="middle">64 samples/pixel</figcaption>
-					</td>
-					<td align="middle">
-						<img src="./images/Part3/3.3/CBspheres_H_16_8.png" width="350px" />
-						<figcaption align="middle">16 samples/pixel</figcaption>
-					</td>
-					<td align="middle">
-						<img src="./images/Part3/3.3/CBspheres_H_64_32.png" width="350px" />
-						<figcaption align="middle">64 samples/pixel</figcaption>
+						<img src="./images/Part3/CBbunny_16_8.png" width="480px" />
+						<figcaption align="middle">16 samples/pixel Importance Sampling</figcaption>
 					</td>
 				</tr>
 			</table>
 		</div>
-		<h3 align="middle">Importance Sampling Renders</h3>
+		<p>
+			<p style ="font-weight: bold ">Compare the results between uniform hemisphere sampling and lighting sampling in a one-paragraph analysis.</p>
+			The direct illumination images shown below compare renders involving the Uniform Hemisphere sampling and Importance sampling techniques described previously for different numbers of pixel samples and light samples. Noise in the renders is substantially reduced when using importance sampling. This demonstrates the effectiveness of the importance sampling technique in producing drastically higher render quality for the same number of samples.
+		</p>
+
+		<p style ="font-weight: bold ">Focus on one particular scene with at least one area light and compare the noise levels in soft shadows when rendering with 1, 4, 16, and 64 light rays (the -l flag) and with 1 sample per pixel (the -s flag) using light sampling, not uniform hemisphere sampling.</p>
+
+		<h3 align="middle">Importance Sampling Renders - Bunny Scene</h3>
 		<div align="center">
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part3/3.4/CBbunny_Importance_16_8.png" width="350px" />
-						<figcaption align="middle">16 samples/pixel</figcaption>
+						<img src="./images/Part3/CBbunny_1_1.png" width="480px" />
+						<figcaption align="middle">1 light ray and 1 sample/pixel</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part3/3.4/CBbunny_Importance_64_32.png" width="350px" />
-						<figcaption align="middle">64 samples/pixel</figcaption>
+						<img src="./images/Part3/CBbunny_1_4.png" width="480px" />
+						<figcaption align="middle">1 light ray and 4 sample/pixel</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td align="middle">
+						<img src="./images/Part3/CBbunny_1_16.png" width="480px" />
+						<figcaption align="middle">1 light ray and 16 sample/pixel</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part3/3.4/CBspheres_Importance_16_8.png" width="350px" />
-						<figcaption align="middle">16 samples/pixel</figcaption>
-					</td>
-					<td align="middle">
-						<img src="./images/Part3/3.4/CBspheres_Importance_64_32.png" width="350px" />
-						<figcaption align="middle">64 samples/pixel</figcaption>
+						<img src="./images/Part3/CBbunny_1_64.png" width="480px" />
+						<figcaption align="middle">1 light ray and 64 sample/pixel</figcaption>
 					</td>
 				</tr>
 			</table>
@@ -166,14 +178,17 @@
 		<!-- PART 4-->
 		<h2 align="middle">Part 4: Global Illumination</h2>
 
-		Indirect Illumination considers contributions from light bouncing between non-emitting objects in the scene. At a high level, ray-tracing for indirect illumination explores the space of all possible light paths from the source(s) to the camera by exploiting the recursive nature of the reflection equation. As implemented here, the indirect lighting function performs the following in each recursive step:
+
+		<p style ="font-weight: bold ">Walk through your implementation of the indirect lighting function.</p>
+
+		Indirect Illumination refers to the inclusion of light reflections between non-emitting objects in a scene. In order to achieve this, ray-tracing for indirect illumination uses a recursive method to explore all possible light paths from the source to the camera. The indirect lighting function works as follows:
 		<ul>
-			<li>For a given intersection with a non-emitting object in the scene, collect the direct-lighting contribution at the intersection point. </li>
-			<li>Then flip a weighted coin determine whether to continue tracing rays � this unbiased probabilistic termination criterion known as the Russian Roulette approach and addresses the possibility of infinite recursion. </li>
-			<li>If ray-tracing is to be continued, randomly sample directions fleeing the intersection point and propagate rays in these directions until they reach another non-emitting object.</li>
-			<li>Recurse on this new intersection point. </li>
+			<li>When a non-emitting object in the scene is intersected, the direct-lighting contribution at that point is collected.</li>
+			<li>A weighted coin is then flipped to determine whether to continue tracing rays. This unbiased probabilistic termination criterion, known as the Russian Roulette approach, prevents infinite recursion. </li>
+			<li>IIf ray-tracing is to be continued, directions are randomly sampled from the intersection point, and rays are propagated in those directions until another non-emitting object is reached.</li>
+			<li>The process is then repeated recursively on the new intersection point. </li>
 		</ul>
-		Indirect illumination enhances the realism of the render by accounting for contributions from multiple light bounces. Comparing the direct illumination with the global illumination renderings of the bunny below, this realism is most apparent in the color bleed from the red and blue walls onto subject and in the softer shadowing. The second row of renderings show the contributions from single-bounce (direct ilumination), two-bounce, and three-bounce light paths in isolation to emphasize their relative importance. The final rendering is the sum of these images and the zero-bounce contribution which represents ray paths going directly between the area light source and the camera.
+		Indirect illumination improves the realism of rendered images by accounting for multiple light bounces. This is particularly evident in the color bleeding from the red and blue walls onto the subject, as well as the softer shadowing, when comparing the direct illumination with the global illumination renderings of the bunny shown below. The second row of images isolates the contributions from single-bounce (direct illumination), two-bounce, and three-bounce light paths to emphasize their relative importance. The final image is the sum of these images and the zero-bounce contribution, representing ray paths that travel directly between the area light source and the camera.
 
 
 
@@ -229,27 +244,31 @@
 		<!-- PART 5-->
 		<h2 align="middle">Part 5: Adaptive Sampling</h2>
 		<p>
-			Adaptive sampling intelligently terminates the number of rays processed per pixel based on the convergence behavior of the pixel�s illuminance. Pixels that seem to have converged to a stable value require no additional sampling to render the scene with high fidelity. To implement adaptive sampling, I modified the raytrace_pixel() function to terminate its sample-averaging loop before the maximum number of samples if the conditions for illuminance convergence were met. These convergence conditions relate the average illuminance, the variance in the samples, and z-scores by assuming the probability distribution of illuminance in the pixel footprint is Gaussian. Implementing this sampling technique improves computational efficiency as it optimizes the amount of pixel super-sampling. This method is loosely reminiscent of Mipmap architectures in that it marries the variation of information within a single pixel�s scene footprint with the degree of super-sampling required for that pixel.
-		</p>
-		<p>
-			The image rendered with adaptive sampling shown below featured a 2048 sample/pixel upper-bound, a ray depth of 5 for global illumination, and a sampling batch size of 64 rays. Observing the sample rate map, regions in the scene with greater surface complexity and more pronounced contrast gradients, like the bunny, require more samples per pixel. This is because the variance of the samples in these regions is higher and thus takes longer to converge. With adaptive sampling, the render time was 296.2882 seconds, requiring 370,872,646 rays. Without adaptive sampling the render time was 937.0081 seconds, requiring 1,238,167,052 rays. The computational advantages of adaptive sampling are clear. The results described here demonstrate that adaptive sampling reduces the number of rays processed by nearly an order of magnitude while sacrificing virtually nothing in render quality. Comparing the two final images rendered with and without adaptive sampling we can see that both methods yield nearly identical outputs.
+			<p style ="font-weight: bold ">Explain adaptive sampling. Walk through your implementation of the adaptive sampling.</p>
+			The technique of adaptive sampling efficiently reduces the number of rays processed per pixel by monitoring the convergence behavior of each pixel's illuminance. If a pixel has stabilized at a certain value, it does not require further sampling to achieve high-fidelity rendering of the scene. To implement adaptive sampling, we made modifications to the raytrace_pixel() function such that it terminates its sample-averaging loop before reaching the maximum number of samples if the convergence conditions for illuminance are met. These conditions are based on the average illuminance, variance in the samples, and z-scores, assuming a Gaussian probability distribution of illuminance within the pixel footprint. Adaptive sampling optimizes the amount of pixel super-sampling, improving computational efficiency while marrying the variation of information within a single pixel's scene footprint with the degree of super-sampling required for that pixel.
 		</p>
 
-
+		<p style ="font-weight: bold ">Pick two scenes and render them with at least 2048 samples per pixel. Show a good sampling rate image with clearly visible differences in sampling rate over various regions and pixels. Include both your sample rate image, which shows your how your adaptive sampling changes depending on which part of the image you are rendering, and your noise-free rendered result. Use 1 sample per light and at least 5 for max ray depth.</p>
 		<div align="center">
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part5/woAdaptive.png" width="480px" />
-						<figcaption align="middle">Without Adaptive Sampling</figcaption>
+						<img src="./images/Part5/bunny.png" width="480px" />
+						<figcaption align="middle">Bunny</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part5/bunny_64batch_adaptive_sampling.png" width="480px" />
-						<figcaption align="middle">With Adaptive Sampling</figcaption>
+						<img src="./images/Part5/bunny_rate.png" width="480px" />
+						<figcaption align="middle">Bunny Sample Rate Map</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td align="middle">
+						<img src="./images/Part5/spheres.png" width="480px" />
+						<figcaption align="middle">Banana</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part5/bunny_64batch_adaptive_sampling_rate.png" width="480px" />
-						<figcaption align="middle">Adaptive Sampling Rate Map</figcaption>
+						<img src="./images/Part5/spheres_rate.png" width="480px" />
+						<figcaption align="middle">Banana Sample rate Map</figcaption>
 					</td>
 				</tr>
 			</table>
