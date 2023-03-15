@@ -247,16 +247,22 @@
 			<table style="width=100%">
 				<tr>
 					<td align="middle">
-						<img src="./images/Part4/spheres_global_b1.png" width="360px" />
-						<figcaption align="middle">1st Bounce Contribution</figcaption>
+						<img src="./images/Part4/bunny_1024_4_0.png" width="360px" />
+						<figcaption align="middle">m = 0. Equivalent to zero-bounce </figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part4/spheres_global_b2.png" width="360px" />
-						<figcaption align="middle">2nd Bounce Contribution</figcaption>
+						<img src="./images/Part4/bunny_1024_4_1.png" width="360px" />
+						<figcaption align="middle">m = 1. Equivalent to direct-lighting estimation from part 3</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td align="middle">
+						<img src="./images/Part4/bunny_1024_4_2.png" width="360px" />
+						<figcaption align="middle">m = 2. Ceiling got light from second bounce</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part4/spheres_global_b3.png" width="360px" />
-						<figcaption align="middle">3rd Bounce Contribution</figcaption>
+						<img src="./images/Part4/bunny_1024_4_3.png" width="360px" />
+						<figcaption align="middle">m = 3. Ceiling corners get more light with third bounce</figcaption>
 					</td>
 				</tr>
 			</table>
@@ -265,17 +271,52 @@
 
 		<div align="center">
 			<table style="width=100%">
-				<tr>
-					<td align="middle">
-						<img src="./images/Part4/spheres_global.png" width="360px" />
-						<figcaption align="middle">Global Illumination</figcaption>
-					</td>
-				</tr>
+				<td align="middle">
+					<img src="./images/Part4/bunny_1024_4_100.png" width="360px" />
+					<figcaption align="middle">m = 100. However, Russian Roulette likely terminates the recursion before 100 depths is reached.</figcaption>
+				</td>
 			</table>
 		</div>
 
-
-
+		<p style ="font-weight: bold ">Pick one scene and compare rendered views with various sample-per-pixel rates, including at least 1, 2, 4, 8, 16, 64, and 1024. Use 4 light rays.</p>
+		<div align="center">
+			<table style="width=100%">
+				<tr>
+					<td align="middle">
+						<img src="./images/Part4/dragon_1_4_nocap.png" width="360px" />
+						<figcaption align="middle">1 sample-per-pixel rate  </figcaption>
+					</td>
+					<td align="middle">
+						<img src="./images/Part4/dragon_2_4_nocap.png" width="360px" />
+						<figcaption align="middle">2 sample-per-pixel rate</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td align="middle">
+						<img src="./images/Part4/dragon_4_4_nocap.png" width="360px" />
+						<figcaption align="middle">4 sample-per-pixel rate</figcaption>
+					</td>
+					<td align="middle">
+						<img src="./images/Part4/dragon_8_4_nocap.png" width="360px" />
+						<figcaption align="middle">8 sample-per-pixel rate</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td align="middle">
+						<img src="./images/Part4/dragon_16_4_nocap.png" width="360px" />
+						<figcaption align="middle">16 sample-per-pixel rate</figcaption>
+					</td>
+					<td align="middle">
+						<img src="./images/Part4/dragon_64_4_nocap.png" width="360px" />
+						<figcaption align="middle">64 sample-per-pixel rate</figcaption>
+					</td>
+				</tr>
+			</table>
+			<td align="middle">
+				<img src="./images/Part4/dragon_1024_4_nocap.png" width="360px" />
+				<figcaption align="middle">1024 sample-per-pixel rate</figcaption>
+			</td>
+		</div>
 		<!-- PART 5-->
 		<h2 align="middle">Part 5: Adaptive Sampling</h2>
 		<p>
