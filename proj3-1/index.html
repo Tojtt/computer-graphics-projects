@@ -76,11 +76,11 @@
 				<tr>
 					<td align="middle">
 						<img src="./images/Part2/cow_mesh.png" width="360px" />
-						<figcaption align="middle">Naive Bounding Box: Single-axis Splitting</figcaption>
+						<figcaption align="middle">Cow Mesh Bounding Box: Root Node</figcaption>
 					</td>
 					<td align="middle">
 						<img src="./images/Part2/cow_mesh2.png" width="360px" />
-						<figcaption align="middle">Heuristic Bounding Box: Three-axis Splitting</figcaption>
+						<figcaption align="middle">Cow Mesh Bounding Box: Child Node (1 level down)</figcaption>
 					</td>
 				</tr>
 			</table>
@@ -132,7 +132,10 @@
 		<p>
 			In this project, we have only implemented a BRDF for diffuse Lambertian reflection. Hence, the BRDF is for diffuse surfaces is independent of the incident and outgoing ray directions. Therefore, the only terms in the reflection integral that do depend on the incident ray direction are L, the incident radiance, and the Lambertian cosine factor. These quantities were thus computed once the ray direction in object space was sampled.
 		</p>
-
+		<p>
+			<p style ="font-weight: bold ">Compare the results between uniform hemisphere sampling and lighting sampling in a one-paragraph analysis.</p>
+			The direct illumination images shown below compare renders involving the Uniform Hemisphere sampling and Importance sampling techniques described previously for different numbers of pixel samples and light samples. Noise in the renders is substantially reduced when using importance sampling. This demonstrates the effectiveness of the importance sampling technique in producing drastically higher render quality for the same number of samples.
+		</p>
 		<p style ="font-weight: bold ">Show some images rendered with both implementations of the direct lighting function.</p>
 		<div align="center">
 			<table style="width=100%">
@@ -148,10 +151,7 @@
 				</tr>
 			</table>
 		</div>
-		<p>
-			<p style ="font-weight: bold ">Compare the results between uniform hemisphere sampling and lighting sampling in a one-paragraph analysis.</p>
-			The direct illumination images shown below compare renders involving the Uniform Hemisphere sampling and Importance sampling techniques described previously for different numbers of pixel samples and light samples. Noise in the renders is substantially reduced when using importance sampling. This demonstrates the effectiveness of the importance sampling technique in producing drastically higher render quality for the same number of samples.
-		</p>
+		
 
 		<p style ="font-weight: bold ">Focus on one particular scene with at least one area light and compare the noise levels in soft shadows when rendering with 1, 4, 16, and 64 light rays (the -l flag) and with 1 sample per pixel (the -s flag) using light sampling, not uniform hemisphere sampling.</p>
 
@@ -338,12 +338,12 @@
 				</tr>
 				<tr>
 					<td align="middle">
-						<img src="./images/Part5/banana.png" width="360px" />
-						<figcaption align="middle">Banana</figcaption>
+						<img src="./images/Part5/spheres.png" width="360px" />
+						<figcaption align="middle">Spheres</figcaption>
 					</td>
 					<td align="middle">
-						<img src="./images/Part5/banana_rate.png" width="360px" />
-						<figcaption align="middle">Banana sample rate map</figcaption>
+						<img src="./images/Part5/spheres_rate.png" width="360px" />
+						<figcaption align="middle">Spheres sample rate map</figcaption>
 					</td>
 				</tr>
 			</table>
