@@ -3,8 +3,8 @@
 <head>
 	<style>
 		body {
-			padding: 100px;
-			width: 1000px;
+			padding: 50px;
+			width: 1100px;
 			margin: auto;
 			text-align: left;
 			font-weight: 300;
@@ -25,10 +25,9 @@
 <body>
 
 	<h1 align="middle">CS 184/284a: Computer Graphics and Imaging, Spring 2023</h1>
-	<h1 align="middle">Project 2: Mesh Editor</h1>
+	<h1 align="middle">Assignment 2: Mesh Editor</h1>
 	<h2 align="middle">Hoang To and David Tai, CS184</h2>
 
-	<br />
 
 	<div>
 
@@ -89,7 +88,7 @@
 			</table>
 		</div>
 		<div align="middle">
-			<img src="images/step6.png" align="middle" width="400px" />
+			<img src="images/step6.png" align="middle" width="350px" />
 			<figcaption align="middle">Bezier Curve for perturbed points with a new t value</figcaption>
 		</div>
 
@@ -103,7 +102,7 @@
 			To evaluate a point g(u,v) on such surfaces using the De Casteljau Algorithm, we define a function that takes in an mxn 2D vector of control points and the parametric coordinates (u,v). The 1D De Casteljau algorithm is first executed along the rows of the 2D vector, which results in a set of m Bezier curves evaluated at u. Then using these resulting m points, the 'sliding' Bezier curve is evaluated at v with the De Casteljau Algorithm. The resulting point is the desired point on the Bezier surface. By creating a patchwork of Bezier surfaces, complex geometries with hard edges, beveled surfaces, and discontinuities can be achieved, as demonstrated in the image below.
 		</p>
 		<div align="middle">
-			<img src="images/teapot.PNG" align="middle" width="600px" />
+			<img src="images/teapot.PNG" align="middle" width="450px" />
 			<figcaption align="middle">A teapot described using Bezier Surfaces.</figcaption>
 		</div>
 
