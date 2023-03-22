@@ -31,15 +31,55 @@
         <p><b>
             Show a sequence of six images of scene `CBspheres.dae` rendered with `max_ray_depth` set to 0, 1, 2, 3, 4, 5, and 100. The other settings should be at least 64 samples per pixel and 4 samples per light. Make sure to include all screenshots.
         </b></p>
-        <p>
-            Your response goes here.
-        </p>
+        <div align="center">
+            <td align="middle">
+                    <img src="./images/Part1/spheres_64_4_0.png" width="400px" />
+                    <figcaption align="middle">Ray depth 0 (64 samples per pixel and 4 samples per light. Same for all images)</figcaption>
+                  </td>
+                 
+            <table style="width=100%"> 
+            <tr>
+                <td align="middle">
+                  <img src="./images/Part1/spheres_64_4_1.png" width="400px" />
+                  <figcaption align="middle">Ray depth 1</figcaption>
+                </td>
+                <td align="middle">
+                  <img src="./images/Part1/spheres_64_4_2.png" width="400px" />
+                  <figcaption align="middle">Ray depth 2</figcaption>
+                </td>
+            </tr>
+            <tr>
+                <td align="middle">
+                  <img src="./images/Part1/spheres_64_4_3.png" width="400px" />
+                  <figcaption align="middle">Ray depth 3</figcaption>
+                </td>
+              
+                <td align="middle">
+                  <img src="./images/Part1/spheres_64_4_4.png" width="400px" />
+                  <figcaption align="middle">Ray depth 4</figcaption>
+                </td>
+            </tr>
+            <tr>
+                <td align="middle">
+                  <img src="./images/Part1/spheres_64_4_5.png" width="400px" />
+                  <figcaption align="middle">Ray depth 5</figcaption>
+                </td>
+                <td align="middle">
+                  <img src="./images/Part1/spheres_64_4_100.png" width="400px" />
+                  <figcaption align="middle">Ray depth 100</figcaption>
+                </td>
+              </tr>
+            </table>
+        </div>
         <br>
         <p><b>
             Point out the new multibounce effects that appear in each image. 
         </b></p>
         <p>
-            Your response goes here.
+            The single-bounce render amounts to direct illumination. Thus, in the left specular sphere we see only the area light source reflected as rays incident on the sphere coming from other points in the scene constitute ray paths with more than one bounce. We can also see on the right transmissive sphere that the reflected area-light is dimmer and noisier. This can be explained by recalling the probablistic approach described previously for how partial reflection and refraction dictated by the Fresnel reflection is approximated here.
+In the two-bounce render we see the diffusive elements of the scene reflected in the specular sphere on the left. Interestingly, the right transmissive sphere, as seen in the reflection of the left sphere, appears black while the right sphere itself appears cloudy yet reflective. This is because any ray paths going from the diffusive surroundings, reflecting off of the right sphere, and subsequently reflecting off the left sphere are 3-bounce ray paths.
+In the three-bounce render, we see a more accurate representation of the right transmissive sphere in the reflection of the left sphere. We also observe a bright spot below the transmissive sphere where the refracted rays from the area light source have concentrated and reached the ground. Finally, we observe a warped portion of the blue wall (inverted horizontally and vertically as is characteristic of refractive glass spheres) through the right sphere.
+The most salient new feature in the four-bounce render is the bright spot on the blue wall. This feature is the image of the area light source coming from the specular reflection of the left sphere.
         </p>
         <br>
         <p><b>
