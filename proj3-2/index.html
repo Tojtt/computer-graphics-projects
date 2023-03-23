@@ -25,6 +25,10 @@
 		<a href="https://hoangcto.github.io/computer-graphics-projects/proj3-2/index.html">Github Page Link </a>
 	</h2>
 	<div class="padded">
+        <h3 align="middle">Overview</h3>
+
+        <p>In this project, we added additional features to the ray tracer from Project 3-1. Specically we implemented <b>Part 1: Mirror and Glass Materials</b> and <b>Part 4: Depth of Field</b>.
+        </p>
 
         <h3 align="middle">Part 1. Mirror and Glass Materials</h3>
 
@@ -76,22 +80,25 @@
             Point out the new multibounce effects that appear in each image. 
         </b></p>
         <p>
-            The single-bounce render amounts to direct illumination. Thus, in the left specular sphere we see only the area light source reflected as rays incident on the sphere coming from other points in the scene constitute ray paths with more than one bounce. We can also see on the right transmissive sphere that the reflected area-light is dimmer and noisier. This can be explained by recalling the probablistic approach described previously for how partial reflection and refraction dictated by the Fresnel reflection is approximated here.
-In the two-bounce render we see the diffusive elements of the scene reflected in the specular sphere on the left. Interestingly, the right transmissive sphere, as seen in the reflection of the left sphere, appears black while the right sphere itself appears cloudy yet reflective. This is because any ray paths going from the diffusive surroundings, reflecting off of the right sphere, and subsequently reflecting off the left sphere are 3-bounce ray paths.
-In the three-bounce render, we see a more accurate representation of the right transmissive sphere in the reflection of the left sphere. We also observe a bright spot below the transmissive sphere where the refracted rays from the area light source have concentrated and reached the ground. Finally, we observe a warped portion of the blue wall (inverted horizontally and vertically as is characteristic of refractive glass spheres) through the right sphere.
-The most salient new feature in the four-bounce render is the bright spot on the blue wall. This feature is the image of the area light source coming from the specular reflection of the left sphere.
+            The render that only involves one bounce represents direct illumination, meaning that the left specular sphere only reflects the area light source, while the rays incident on the sphere from other points in the scene create ray paths with more than one bounce. The right transmissive sphere also reflects the area light source, but it is dimmer and noisier due to the probabilistic approach used to approximate partial reflection and refraction governed by the Fresnel reflection.
+            <br><br>
+            In the two-bounce render, the diffusive elements of the scene are reflected in the specular sphere on the left. Interestingly, the reflection of the left sphere shows that the right transmissive sphere appears black while the right sphere itself appears cloudy yet reflective, because any ray paths going from the diffusive surroundings, reflecting off of the right sphere, and subsequently reflecting off the left sphere involve three bounces.
+            <br><br>
+            The three-bounce render provides a more accurate representation of the right transmissive sphere in the reflection of the left sphere. It also features a bright spot below the transmissive sphere, where the refracted rays from the area light source have converged and reached the ground. Lastly, the right sphere shows a warped portion of the blue wall that is inverted horizontally and vertically, as is typical of refractive glass spheres.
+            <br><br>
+            In the four-bounce render, the most notable new element is the bright spot on the blue wall, which is the image of the area light source reflected in the left sphere.
         </p>
         <br>
         <p><b>
             Explain how these bounce numbers relate to the particular effects that appear. Make sure to include all screenshots.
         </b></p>
         <p>
-            Your response goes here.
+            Please see images and responses above for commentary on the effects related to the bounce.
         </p>
         <br>
 
 
-        <h3 align="middle">Part 2. Microfacet Material</h3>
+    <!-- <div><h3 align="middle">Part 2. Microfacet Material</h3>
         <p><b>
             Show a screenshot sequence of 4 images of scene `CBdragon_microfacet_au.dae` rendered with α set to 0.005, 0.05, 0.25 and 0.5. The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Describe the differences between different images. Note that, to change the $\alpha$, just open the .dae file and search for `microfacet`.
         </b></p>
@@ -113,11 +120,11 @@ The most salient new feature in the four-bounce render is the bright spot on the
             Your response goes here.
         </p>
         <br>
-        
+    </div> -->
         
         
 
-        <h3 align="middle">Part 3. Environment Lightl</h3>
+    <!-- <div><h3 align="middle">Part 3. Environment Lightl</h3>
         <b>Pick one *.exr* file to use for all subparts here. Include a converted *.jpg* of it in your website so we know what map you are using.</b>
         
         <p><b>
@@ -148,26 +155,46 @@ The most salient new feature in the four-bounce render is the bright spot on the
             Your response goes here.
         </p>
         <br>
-
-
+    </div>
+ -->
 
         <h3 align="middle">Part 4. Depth of Field</h3>
-        <b>
-            For these subparts, we recommend using a microfacet BSDF scene to show off the cool out of focus effects you can get with depth of field!
-        </b>
         <p><b>
             In a few sentences, explain the differences between a pinhole camera model and a thin-lens camera model. 
         </b></p>
         <p>
-            Your response goes here.
+            The pinhole camera model is a basic way to understand how a camera works. It represents a camera as a box with a tiny hole on one side that light travels through to create an upside-down image on the other side. On the other hand, the thin-lens camera model is more advanced and uses a lens to create the image. It's a more realistic and accurate way to model how cameras work and considers features such as focal length, aperture, and depth of field. This model is widely used in modern camera systems.
         </p>
         <br>
         <p><b>
             Show a "focus stack" where you focus at 4 visibly different depths through a scene. Make sure to include all screenshots.
         </b></p>
-        <p>
-            Your response goes here.
-        </p>
+        
+            <div align="center">
+                <table style="width=100%"> 
+                    <tr>
+                        <td align="middle">
+                        <img src="./images/Part4/dragonb0_23d6.png" width="400px" />
+                        <figcaption align="middle">Focal Distance 6 (-s 256 -m 4 -l 4 -b 0.23. Same for rest) </figcaption>
+                        </td>
+                        <td align="middle">
+                        <img src="./images/Part4/dragonb0_23d5.png" width="400px" />
+                        <figcaption align="middle">Focal Distance 5</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="middle">
+                        <img src="./images/Part4/dragonb0_23d4_75.png" width="400px" />
+                        <figcaption align="middle">Focal Distance 4.75</figcaption>
+                        </td>
+                    
+                        <td align="middle">
+                        <img src="./images/Part4/dragonb0_23d4_5.png" width="400px" />
+                        <figcaption align="middle">Focal Distance 4.5</figcaption>
+                        </td>
+                    </tr>
+                    </table>
+                </div>
         <br>
         <p><b>
             Show a sequence of 4 pictures with visibly different aperture sizes, all focused at the same point in a scene. Make sure to include all screenshots.
