@@ -24,247 +24,411 @@
 	<h2 align="center">
 		<a href="https://hoangcto.github.io/computer-graphics-projects/proj4/index.html">Github Page Link </a>
 	</h2>
-	<div class="padded">
-        <h3 align="middle">Overview</h3>
+	<br><br>
 
-        <p>In this project, we implemented a real-time simulation of cloth using a mass and spring based system. We built the data structures to discretely represent the cloth, define and apply physical constraints on them, and apply numerical integration to simulate the way cloth moves over time. Finally, we implemented collisions with other objects as well as self-collisions to prevent cloth clipping.
-        </p>
-
-        <h3 align="middle">Part 1. Mirror and Glass Materials</h3>
-
-        <p><b>
-            Take some screenshots of scene/pinned2.json from a viewing angle where you can clearly see the cloth wireframe to show the structure of your point masses and springs.
-        </b></p>
-        <div align="center">
-            <td align="middle">
-                    <img src="./images/Part1/spheres_64_4_0.png" width="400px" />
-                    <figcaption align="middle">Ray depth 0 (64 samples per pixel and 4 samples per light. Same for all images)</figcaption>
-                  </td>
-                 
-            <table style="width=100%"> 
-            <tr>
-                <td align="middle">
-                  <img src="./images/Part1/spheres_64_4_1.png" width="400px" />
-                  <figcaption align="middle">Ray depth 1</figcaption>
-                </td>
-                <td align="middle">
-                  <img src="./images/Part1/spheres_64_4_2.png" width="400px" />
-                  <figcaption align="middle">Ray depth 2</figcaption>
-                </td>
-            </tr>
-            <tr>
-                <td align="middle">
-                  <img src="./images/Part1/spheres_64_4_3.png" width="400px" />
-                  <figcaption align="middle">Ray depth 3</figcaption>
-                </td>
-              
-                <td align="middle">
-                  <img src="./images/Part1/spheres_64_4_4.png" width="400px" />
-                  <figcaption align="middle">Ray depth 4</figcaption>
-                </td>
-            </tr>
-            <tr>
-                <td align="middle">
-                  <img src="./images/Part1/spheres_64_4_5.png" width="400px" />
-                  <figcaption align="middle">Ray depth 5</figcaption>
-                </td>
-                <td align="middle">
-                  <img src="./images/Part1/spheres_64_4_100.png" width="400px" />
-                  <figcaption align="middle">Ray depth 100</figcaption>
-                </td>
-              </tr>
-            </table>
-        </div>
-        <br>
-        <p><b>
-            Show us what the wireframe looks like (1) without any shearing constraints, (2) with only shearing constraints, and (3) with all constraints.
-        </b></p>
-        <p>
-            The render that only involves one bounce represents direct illumination, meaning that the left specular sphere only reflects the area light source, while the rays incident on the sphere from other points in the scene create ray paths with more than one bounce. The right transmissive sphere also reflects the area light source, but it is dimmer and noisier due to the probabilistic approach used to approximate partial reflection and refraction governed by the Fresnel reflection.
-            <br><br>
-            In the two-bounce render, the diffusive elements of the scene are reflected in the specular sphere on the left. Interestingly, the reflection of the left sphere shows that the right transmissive sphere appears black while the right sphere itself appears cloudy yet reflective, because any ray paths going from the diffusive surroundings, reflecting off of the right sphere, and subsequently reflecting off the left sphere involve three bounces.
-            <br><br>
-            The three-bounce render provides a more accurate representation of the right transmissive sphere in the reflection of the left sphere. It also features a bright spot below the transmissive sphere, where the refracted rays from the area light source have converged and reached the ground. Lastly, the right sphere shows a warped portion of the blue wall that is inverted horizontally and vertically, as is typical of refractive glass spheres.
-            <br><br>
-            In the four-bounce (and more) render, the most notable new element is the bright spot on the blue wall, which is the image of the area light source reflected in the left sphere.
-        </p>
-
-        <h3 align="middle">Part 2. Depth of Field</h3>
-        <p><b>
-			Experiment with some the parameters in the simulation. To do so, pause the simulation at the start with P, modify the values of interest, and then resume by pressing P again. You can also restart the simulation at any time from the cloth's starting position by pressing R.
-        </b></p>
-        <p><b>
-            Describe the effects of changing the spring constant ks; how does the cloth behave from start to rest with a very low ks? A high ks?
-        </b></p>
-        <br>
-        <p><b>
-            What about for density?
-        </b></p>
-
-		<p><b>
-            What about for damping?
-        </b></p>
-		<p><b>
-            For each of the above, observe any noticeable differences in the cloth compared to the default parameters and show us some screenshots of those interesting differences and describe when they occur.
-        </b></p>
-        <p><b>
-            Show us a screenshot of your shaded cloth from scene/pinned4.json in its final resting state! If you choose to use different parameters than the default ones, please list them.
-        </b></p>
-            <div align="center">
-                <table style="width=100%"> 
-                    <tr>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d5_25.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 5.25 - Tail in focus </figcaption>
-                        </td>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d5.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 5 - Middle and Tail in focus</figcaption>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d4_75.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 4.75 - Middle toward front in focus</figcaption>
-                        </td>
-                    
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d4_5.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 4.5 - Front dragon in focus</figcaption>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        <br>
-		<h3 align="middle">Part 3. Depth of Field</h3>
-        <p><b>
-			Show us screenshots of your shaded cloth from scene/sphere.json in its final resting state on the sphere using the default ks = 5000 as well as with ks = 500 and ks = 50000. Describe the differences in the results.
-        </b></p>
-       
-        <p><b>
-            Show us a screenshot of your shaded cloth lying peacefully at rest on the plane. If you haven't by now, feel free to express your colorful creativity with the cloth! (You will need to complete the shaders portion first to show custom colors.)
-
-        </b></p>
-            <div align="center">
-                <table style="width=100%"> 
-                    <tr>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d5_25.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 5.25 - Tail in focus </figcaption>
-                        </td>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d5.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 5 - Middle and Tail in focus</figcaption>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d4_75.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 4.75 - Middle toward front in focus</figcaption>
-                        </td>
-                    
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d4_5.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 4.5 - Front dragon in focus</figcaption>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        <br>
-        
-		<h3 align="middle">Part 4. Depth of Field</h3>
-        <p><b>
-			Show us at least 3 screenshots that document how your cloth falls and folds on itself, starting with an early, initial self-collision and ending with the cloth at a more restful state (even if it is still slightly bouncy on the ground).
-        </b></p>
-       
-        <p><b>
-            Vary the density as well as ks and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself.
-
-
-        </b></p>
-            <div align="center">
-                <table style="width=100%"> 
-                    <tr>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d5_25.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 5.25 - Tail in focus </figcaption>
-                        </td>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d5.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 5 - Middle and Tail in focus</figcaption>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d4_75.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 4.75 - Middle toward front in focus</figcaption>
-                        </td>
-                    
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d4_5.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 4.5 - Front dragon in focus</figcaption>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        <br>
-
-			
-		<h3 align="middle">Part 5. Depth of Field</h3>
-        <p><b>
-			Explain in your own words what is a shader program and how vertex and fragment shaders work together to create lighting and material effects.
-        </b></p>
-       
-        <p><b>
-            Explain the Blinn-Phong shading model in your own words. Show a screenshot of your Blinn-Phong shader outputting only the ambient component, a screen shot only outputting the diffuse component, a screen shot only outputting the specular component, and one using the entire Blinn-Phong model.
-        </b></p>
-
-		<p><b>
-            Show a screenshot of your texture mapping shader using your own custom texture by modifying the textures in /textures/.
-        </b></p>
-
-		<p><b>
-            Show a screenshot of bump mapping on the cloth and on the sphere. Show a screenshot of displacement mapping on the sphere. Use the same texture for both renders. You can either provide your own texture or use one of the ones in the textures directory, BUT choose one that's not the default texture_2.png. Compare the two approaches and resulting renders in your own words. Compare how your the two shaders react to the sphere by changing the sphere mesh's coarseness by using -o 16 -a 16 and then -o 128 -a 128.
-        </b></p>
-
-		<p><b>
-            Show a screenshot of your mirror shader on the cloth and on the sphere.
-        </b></p>
-
-		<p><b>
-            Explain what you did in your custom shader, if you made one.
-        </b></p>
-
-            <div align="center">
-                <table style="width=100%"> 
-                    <tr>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d5_25.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 5.25 - Tail in focus </figcaption>
-                        </td>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d5.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 5 - Middle and Tail in focus</figcaption>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d4_75.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 4.75 - Middle toward front in focus</figcaption>
-                        </td>
-                    
-                        <td align="middle">
-                        <img src="./images/Part4/dragonb0_23d4_5.png" width="400px" />
-                        <figcaption align="middle">Focal Distance 4.5 - Front dragon in focus</figcaption>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        <br>
-
-    </div>
-	<h2 align="center">
-		<a href="https://hoangcto.github.io/computer-graphics-projects/proj4/index.html">Github Page Link </a>
-	</h2>
-</body>
+	<div>
+	  <h2 align="middle">Overview</h2>
+	  <p>Give a high-level overview of what you implemented in this project. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the project.</p>
+	</div>
+  
+	<a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4-part-1">
+	<h2 align="middle">Part 1: Masses and springs</h2>
+	</a>
+	  <blockquote><b>
+		Take some screenshots of <i>scene/pinned2.json</i> from a viewing angle where you can clearly see the cloth wireframe 
+		to show the structure of your point masses and springs. 
+	  </b></blockquote>
+  
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t1-zoomed-in_p2.png" align="middle" width="300vw" />
+			</td>
+			<td>
+			  <img src="images/t1-init_p2.png" align="middle" width="300vw" />
+			  <figcaption>Initial configuration ($\text{ks} = 5,000$)</figcaption>
+			</td>
+			<td>
+			  <img src="images/t1-zoomed-out_p2.png" align="middle" width="300vw" />
+			</td>
+			<td>
+		  </tr>
+		</table>
+	  </div>
+  
+  
+	  <blockquote><b>
+		Show us what the wireframe looks like (1) without any shearing constraints, 
+		(2) with only shearing constraints, and (3) with all constraints.
+	  </b></blockquote>
+  
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t1-no_shear.png" align="middle" width="500px" />
+			  <figcaption>No shearing constraints</figcaption>
+			</td>
+		  </tr>
+		  <tr align="center">
+			<td>
+			  <img src="images/t1-only_shear.png" align="middle" width="500px" />
+			  <figcaption>Only shearing constraints</figcaption>
+			</td>
+		  </tr>
+		  <tr align="center">
+			<td>
+			  <img src="images/t1-all.png" align="middle" width="500px" />
+			  <figcaption>All constraints</figcaption>
+			</td>
+		  </tr>
+		</table>
+	  </div>
+  
+  
+  
+	<a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4-part-2">
+	<h2 align="middle">Part 2: Simulation via numerical integration</h2>
+	</a>
+	  <blockquote><b>
+		Experiment with some the parameters in the simulation. 
+		To do so, pause the simulation at the start with <kbd>P</kbd>, modify the values of interest, and then resume by pressing <kbd>P</kbd> again. 
+		You can also restart the simulation at any time from the cloth's starting position by pressing <kbd>R</kbd>.
+		<br />
+		<small>
+		Describe the effects of changing the spring constant <code>ks</code>; how does the cloth behave from start to rest with a very low <code>ks</code>? 
+		A high <code>ks</code>?
+		</small>
+	  </b></blockquote>
+  
+	  <p>
+		TODO
+	  </p>
+  
+  
+	  <blockquote><b>
+		<small>
+		  What about for <code>density</code>?
+		</small>
+	  </b></blockquote>
+  
+	  <p>
+		TODO
+	  </p>
+	  
+	  
+	  <blockquote><b>
+		<small>
+		  What about for <code>damping</code>?
+		</small>
+	  </b></blockquote>
+  
+	  <p>
+		TODO
+	  </p>
+  
+  
+	  <blockquote><b>
+		<small>
+		For each of the above, observe any noticeable differences in the cloth compared to the default parameters 
+		and show us some screenshots of those interesting differences and describe when they occur.
+		</small>
+	  </b></blockquote>
+	
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t2-interesting-difference1.png" align="middle" width="400vw" />
+			  <figcaption>Default Parameters</figcaption>
+			</td>
+			<td>
+			  <img src="images/t2-interesting-difference2.png" align="middle" width="400vw" />
+			  <figcaption>Default Parameters</figcaption>
+			</td>
+			<td>
+		  </tr>
+		</table>
+	  </div>
+	
+	  <p>
+		TODO
+	  </p>
+  
+  
+	  <blockquote><b>
+	  Show us a screenshot of your shaded cloth from <i>scene/pinned4.json</i> in its final resting state! 
+	  If you choose to use different parameters than the default ones, please list them.
+	  </b></blockquote>
+  
+	  <div align="middle">
+		<img src="images/t2-shaded-cloth-resting-p4.png" align="middle" width="100%" />
+	  </div>
+  
+  
+  
+	<a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4-part-3">
+	<h2 align="middle">Part 3: Handling collisions with other objects</h2>
+	</a>
+	  <blockquote><b>
+		Show us screenshots of your shaded cloth from <i>scene/sphere.json</i> in its final resting state 
+		on the sphere using the default <code>ks = 5000</code> as well as with <code>ks = 500</code> and <code>ks = 50000</code>. 
+	  </b></blockquote>
+	  
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t3-ks-500.png" align="middle" width="300vw" />
+			  <figcaption>$\text{ks} = 500$</figcaption>
+			</td>
+			<td>
+			  <img src="images/t3-ks-5000.png" align="middle" width="300vw" />
+			  <figcaption>Initial configuration ($\text{ks} = 5,000$)</figcaption>
+			</td>
+			<td>
+			  <img src="images/t3-ks-50000.png" align="middle" width="300vw" />
+			  <figcaption>$\text{ks} = 50,000$</figcaption>
+			</td>
+			<td>
+		  </tr>
+		</table>
+	  </div>
+  
+  
+	  <blockquote><b>
+		<small>Describe the differences in the results.</small>
+	  </b></blockquote>
+  
+	  <p>
+		TODO
+	  </p>
+  
+  
+	  <blockquote><b>
+		Show us a screenshot of your shaded cloth lying peacefully at rest on the plane. 
+		If you haven't by now, feel free to express your colorful creativity with the cloth! 
+		(You will need to complete the shaders portion first to show custom colors.)
+	  </b></blockquote>
+  
+	  <div align="middle">
+		<img src="images/t3-shaded-cloth-at-rest.png" align="middle" width="100%" />
+	  </div>
+  
+  
+  
+	<a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4-part-4">
+	<h2 align="middle">Part 4: Handling self-collisions</h2>
+	</a>
+  
+	  <blockquote><b>
+		Show us at least 3 screenshots that document how your cloth falls and folds on itself, 
+		starting with an early, initial self-collision 
+		and ending with the cloth at a more restful state (even if it is still slightly bouncy on the ground).
+	  </b></blockquote>
+	  
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t4-collision-1.png" align="middle" width="300vw" />
+			  <figcaption>Self collision 1</figcaption>
+			</td>
+			<td>
+			  <img src="images/t4-collision-2.png" align="middle" width="300vw" />
+			  <figcaption>Self collision 2</figcaption>
+			</td>
+			<td>
+			  <img src="images/t4-collision-3.png" align="middle" width="300vw" />
+			  <figcaption>Self collision 3</figcaption>
+			</td>
+			<td>
+		  </tr>
+		</table>
+	  </div>
+  
+  
+	  <blockquote><b>
+		Vary the <code>density</code> as well as <code>ks</code> 
+		
+		and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself.
+	  </b></blockquote>
+  
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+				<img src="images/t4-density-1.png" align="middle" width="400px" />
+				<figcaption>$\text{density} = 1$</figcaption>
+				
+			</td>
+			<td>
+				<img src="images/t4-density-2.png" align="middle" width="400px" />
+				<figcaption>$\text{density} = 50$</figcaption>
+			</td>
+		  </tr>
+		  <tr align="center">
+			<td>
+				<img src="images/t4-ks-1.png" align="middle" width="400px" />
+				<figcaption>$\text{ks} = 1,000$</figcaption>
+			</td>
+			<td>
+				<img src="images/t4-ks-2.png" align="middle" width="400px" />
+				<figcaption>$\text{ks} = 7,500$</figcaption>
+			</td>
+		  </tr>
+		</table>
+	  </div>
+  
+	  <p>
+		TODO
+	  </p>
+  
+  
+  
+	<a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4-part-5">
+	<h2 align="middle">Part 5: Cloth Sim</h2>
+	</a>
+  
+	  <blockquote><b>
+	  Explain in your own words what is a shader program and how vertex and fragment shaders work together to create lighting and material effects.
+	  </b></blockquote>
+  
+	  <p>
+		TODO
+	  </p>
+  
+  
+	  <blockquote><b>
+	  Explain the Blinn-Phong shading model in your own words. 
+	  Show a screenshot of your Blinn-Phong shader outputting only the ambient component, a screen shot only outputting the diffuse component, a screen shot only outputting the specular component, and one using the entire Blinn-Phong model.
+	  </b></blockquote>
+  
+	  <p>
+		TODO
+	  </p>
+  
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+				<img src="images/t5-blinn-phong-ambient.png" align="middle" width="400px" />
+				<figcaption>Ambient component only</figcaption>
+				
+			</td>
+			<td>
+				<img src="images/t5-blinn-phong-diffuse.png" align="middle" width="400px" />
+				<figcaption>Diffuse component only</figcaption>
+			</td>
+		  </tr>
+		  <tr align="center">
+			<td>
+				<img src="images/t5-blinn-phong-specular.png" align="middle" width="400px" />
+				<figcaption>Specular component only</figcaption>
+			</td>
+			<td>
+				<img src="images/t5-blinn-phong-all.png" align="middle" width="400px" />
+				<figcaption>Complete Blinn-Phong model</figcaption>
+			</td>
+		  </tr>
+		</table>
+	  </div>
+  
+		
+	  <blockquote><b>
+	  Show a screenshot of your texture mapping shader using your own custom texture by modifying the textures in <code>/textures/</code>.
+	  </b></blockquote>
+  
+	  <div align="middle">
+		<img src="images/t5-custom-texture.png" align="middle" width="100%" />
+	  </div>
+  
+  
+	  <blockquote><b>
+	  Show a screenshot of bump mapping on the cloth and on the sphere. 
+	  Show a screenshot of displacement mapping on the sphere. 
+	  Use the same texture for both renders. 
+	  You can either provide your own texture or use one of the ones in the textures directory, 
+	  BUT choose one that's not the default <code>texture_2.png</code>. 
+	  Compare the two approaches and resulting renders in your own words. 
+	  Compare how your the two shaders react to the sphere by changing the sphere mesh's coarseness by using <code>-o 16 -a 16</code> and then <code>-o 128 -a 128</code>.
+	  </b></blockquote>
+  
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t5-bump-mapping-cloth.png" align="middle" width="400vw" />
+			  <figcaption>Bump Mapping on the Cloth</figcaption>
+			</td>
+			<td>
+			  <img src="images/t5-bump-mapping-sphere.png" align="middle" width="400vw" />
+			  <figcaption>Bump Mapping on the Sphere</figcaption>
+			</td>
+			<td>
+		  </tr>
+		  <tr align="center">
+			<td>
+			  <img src="images/t5-displacement-mapping-sphere.png" align="middle" width="400vw" />
+			  <figcaption>Displacement Mapping on the Sphere</figcaption>
+			</td>
+			<td>
+			  <img src="images/t5-displacement-mapping-sphere-2.png" align="middle" width="400vw" />
+			  <figcaption>Displacement Mapping on the Sphere (coarser mesh)</figcaption>
+			</td>
+			<td>
+		  </tr>
+		</table>
+	  </div>
+  
+	  <p>
+		TODO
+	  </p>
+  
+  
+	  <blockquote><b>
+	  Show a screenshot of your mirror shader on the cloth and on the sphere.
+	  </b></blockquote>
+  
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t5-mirror-shader-cloth.png" align="middle" width="400vw" />
+			  <figcaption>Mirror Shader on the Cloth</figcaption>
+			</td>
+			<td>
+			  <img src="images/t5-mirror-shader-sphere.png" align="middle" width="400vw" />
+			  <figcaption>Mirror Shader on the Sphere</figcaption>
+			</td>
+			<td>
+		  </tr>
+		</table>
+	  </div>
+  
+  
+	  <blockquote><b>
+	  Explain what you did in your custom shader, if you made one.
+	  </b></blockquote>
+  
+	  <p>
+		TODO
+	  </p>
+  
+  
+  
+	<h2 align="middle">Extra Credit (optional)</h2>
+	  <blockquote><b>
+	  If you implemented any additional technical features for the cloth simulation, 
+	  clearly describe what you did and provide screenshots that illustrate your work. 
+	  If it is an improvement compared to something already existing on the cloth simulation, 
+	  compare and contrast them both in words and in images.
+	  </b></blockquote>
+  
+	  <p>
+		N/A
+	  </p>
+  
+  </body>
 </html>
