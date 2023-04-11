@@ -24,33 +24,31 @@
 	<h2 align="center">
 		<a href="https://hoangcto.github.io/computer-graphics-projects/proj4/index.html">Github Page Link </a>
 	</h2>
-	<br><br>
+	<br>
 
 	<div>
 	  <h2 align="middle">Overview</h2>
-	  <p>Give a high-level overview of what you implemented in this project. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the project.</p>
+	  <p>In our project, we developed a cloth simulator that is visually realistic and implemented several shaders to expand the artistic possibilities for stylizing the simulation. The cloth simulator uses classical mechanics equations and a dedicated cloth data structure to model the cloth as a 2D grid of point masses connected by an isometric spring lattice. Each point mass's motion on the grid is determined by the cumulative effect of the spring forces (following Hooke's Law) and external forces. The Verlet Integration technique was employed to propagate the position of each point mass forward in time, maintaining stability despite energy losses. Additionally, we addressed collisions with objects in the scene and self-collision effects to prevent the cloth from intersecting itself. We were impressed that the simulator was able to produce visually convincing cloth behavior with various material effects.</p>
 	</div>
   
 	<a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4-part-1">
 	<h2 align="middle">Part 1: Masses and springs</h2>
 	</a>
-	  <blockquote><b>
+	  <p><b>
 		Take some screenshots of <i>scene/pinned2.json</i> from a viewing angle where you can clearly see the cloth wireframe 
 		to show the structure of your point masses and springs. 
-	  </b></blockquote>
+	  </b></p>
   
 	  <div align="middle">
 		<table style="width:100%">
 		  <tr align="center">
 			<td>
-			  <img src="images/t1-zoomed-in_p2.png" align="middle" width="300vw" />
+			  <img src="images/t1-zoomed-out_p2.png" align="middle" width="400vw" />
+			  <figcaption>Cloth wireframe</figcaption>
 			</td>
 			<td>
-			  <img src="images/t1-init_p2.png" align="middle" width="300vw" />
-			  <figcaption>Initial configuration ($\text{ks} = 5,000$)</figcaption>
-			</td>
-			<td>
-			  <img src="images/t1-zoomed-out_p2.png" align="middle" width="300vw" />
+				<img src="images/t1-zoomed-in_p2.png" align="middle" width="400vw" />
+				<figcaption>Cloth wireframe zoom-in</figcaption>
 			</td>
 			<td>
 		  </tr>
@@ -58,112 +56,116 @@
 	  </div>
   
   
-	  <blockquote><b>
+	  <p><b>
 		Show us what the wireframe looks like (1) without any shearing constraints, 
 		(2) with only shearing constraints, and (3) with all constraints.
-	  </b></blockquote>
+	  </b></p>
   
 	  <div align="middle">
 		<table style="width:100%">
 		  <tr align="center">
 			<td>
-			  <img src="images/t1-no_shear.png" align="middle" width="500px" />
+			  <img src="images/t1-no_shear.png" align="middle" width="450px" />
 			  <figcaption>No shearing constraints</figcaption>
 			</td>
-		  </tr>
-		  <tr align="center">
-			<td>
-			  <img src="images/t1-only_shear.png" align="middle" width="500px" />
+		  	<td>
+			  <img src="images/t1-only_shear.png" align="middle" width="450px" />
 			  <figcaption>Only shearing constraints</figcaption>
 			</td>
 		  </tr>
-		  <tr align="center">
-			<td>
-			  <img src="images/t1-all.png" align="middle" width="500px" />
-			  <figcaption>All constraints</figcaption>
-			</td>
-		  </tr>
 		</table>
 	  </div>
-  
+	  <br>
+	  <div align="center">
+		<td>
+		  <img src="images/t1-all.png" align="middle" width="450px" />
+		  <figcaption>All constraints</figcaption>
+		</td>
+	</div>
   
   
 	<a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4-part-2">
 	<h2 align="middle">Part 2: Simulation via numerical integration</h2>
 	</a>
-	  <blockquote><b>
-		Experiment with some the parameters in the simulation. 
-		To do so, pause the simulation at the start with <kbd>P</kbd>, modify the values of interest, and then resume by pressing <kbd>P</kbd> again. 
-		You can also restart the simulation at any time from the cloth's starting position by pressing <kbd>R</kbd>.
-		<br />
-		<small>
+	  <p><b>
+		
 		Describe the effects of changing the spring constant <code>ks</code>; how does the cloth behave from start to rest with a very low <code>ks</code>? 
 		A high <code>ks</code>?
-		</small>
-	  </b></blockquote>
+
+	  </b></p>
   
 	  <p>
-		TODO
+		By increasing the spring constant, the stiffness of the spring is effectively increased. As we examine the images from left to right, we observe a two orders of magnitude decrease in the spring constant. It appears that for lower spring constants, such as <b><kbd>ks = 500 N/m</kbd></b>, the cloth becomes more pliable because the stretching is more pronounced compared to the <b><code>ks = 50,000 N/m</code></b> case, despite both simulations having the same gravitational field.
 	  </p>
-  
-  
-	  <blockquote><b>
-		<small>
-		  What about for <code>density</code>?
-		</small>
-	  </b></blockquote>
-  
-	  <p>
-		TODO
-	  </p>
-	  
-	  
-	  <blockquote><b>
-		<small>
-		  What about for <code>damping</code>?
-		</small>
-	  </b></blockquote>
-  
-	  <p>
-		TODO
-	  </p>
-  
-  
-	  <blockquote><b>
-		<small>
-		For each of the above, observe any noticeable differences in the cloth compared to the default parameters 
-		and show us some screenshots of those interesting differences and describe when they occur.
-		</small>
-	  </b></blockquote>
-	
 	  <div align="middle">
 		<table style="width:100%">
 		  <tr align="center">
 			<td>
-			  <img src="images/t2-interesting-difference1.png" align="middle" width="400vw" />
-			  <figcaption>Default Parameters</figcaption>
+			  <img src="images/t2-low_ks.png" align="middle" width="400vw" />
+			  <figcaption>ks = 500 N/m</figcaption>
 			</td>
 			<td>
-			  <img src="images/t2-interesting-difference2.png" align="middle" width="400vw" />
-			  <figcaption>Default Parameters</figcaption>
+			  <img src="images/t2-high_ks.png" align="middle" width="400vw" />
+			  <figcaption>ks = 50,000 N/m</figcaption>
 			</td>
 			<td>
 		  </tr>
 		</table>
 	  </div>
 	
+  
+	  <p><b>
+		  What about for <code>density</code>?
+	  </b></p>
+  
 	  <p>
-		TODO
+		The density is a property of the point masses and not the springs in the cloth. When we increase the density of the point masses, it has a comparable impact on the cloth to reducing the spring constant. This correlation can be clarified by Newton's Second Law, which states that the force applied to an object is proportional to its mass. As a result, the cloth becomes more responsive to external forces in the simulation, such as gravity.
+	  </p>
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t2-high_density.png" align="middle" width="400vw" />
+			  <figcaption>Density = 1,500 g/cm^2</figcaption>
+			</td>
+			<td>
+				<img src="images/t2-low_density.png" align="middle" width="400vw" />
+				<figcaption>Density = 1.5 g/cm^2</figcaption>
+			</td>
+		  </tr>
+		</table>
+	  </div>
+	  
+	  <p><b>
+		  What about for <code>damping</code>?
+	  </b></p>
+  
+	  <p>
+		The impact of damping on cloth simulation is not very noticeable in static images. However, during live simulations, we observed that the damping value has a significant influence on how quickly the simulation settles into a state of rest. Higher damping values result in faster settling. The two images displayed depict simulations that have been integrated for a long time. The left image shows a simulation with 0% damping, where the cloth never reaches a state of rest, as evidenced by the small oscillations that persist in the cloth even after a long integration time (which may require zooming in to detect). On the other hand, the image on the right illustrates a simulation with at least some damping, where the cloth is entirely at rest, as seen by the smooth contours of the cloth.
 	  </p>
   
-  
-	  <blockquote><b>
+	  <div align="middle">
+		<table style="width:100%">
+		  <tr align="center">
+			<td>
+			  <img src="images/t2-no_damp.png" align="middle" width="400vw" />
+			  <figcaption>Damping = 0%</figcaption>
+			</td>
+			<td>
+				<img src="images/t2-some_damp.png" align="middle" width="400vw" />
+				<figcaption>Damping = 0.2% (or > 0)</figcaption>
+			</td>
+		  </tr>
+		</table>
+	  </div>
+	  <p><b>
 	  Show us a screenshot of your shaded cloth from <i>scene/pinned4.json</i> in its final resting state! 
 	  If you choose to use different parameters than the default ones, please list them.
-	  </b></blockquote>
+	  </b></p>
   
 	  <div align="middle">
-		<img src="images/t2-shaded-cloth-resting-p4.png" align="middle" width="100%" />
+		<img src="images/t2-shaded-cloth-resting-p4.png" align="middle" width="60%" />
+		<figcaption>Cloth pinned at four corners displayed with normal shading</figcaption>
 	  </div>
   
   
@@ -180,22 +182,21 @@
 		<table style="width:100%">
 		  <tr align="center">
 			<td>
-			  <img src="images/t3-ks-500.png" align="middle" width="300vw" />
-			  <figcaption>$\text{ks} = 500$</figcaption>
+			  <img src="images/t3-ks-500.png" align="middle" width="400vw" />
+			  <figcaption>ks = 500 N/m</figcaption>
 			</td>
 			<td>
-			  <img src="images/t3-ks-5000.png" align="middle" width="300vw" />
-			  <figcaption>Initial configuration ($\text{ks} = 5,000$)</figcaption>
+			  <img src="images/t3-ks-5000.png" align="middle" width="400vw" />
+			  <figcaption>ks = 5,000 N/m</figcaption>
 			</td>
-			<td>
-			  <img src="images/t3-ks-50000.png" align="middle" width="300vw" />
-			  <figcaption>$\text{ks} = 50,000$</figcaption>
-			</td>
-			<td>
-		  </tr>
+		</tr>
 		</table>
 	  </div>
-  
+	  <br>
+	  <div align="center">
+		<img src="images/t3-ks-50000.png" align="middle" width="400vw" />
+		<figcaption>ks = 50,000 N/m</figcaption>
+	  </div>
   
 	  <blockquote><b>
 		<small>Describe the differences in the results.</small>
