@@ -173,10 +173,10 @@
 	<a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4-part-3">
 	<h2 align="middle">Part 3: Handling collisions with other objects</h2>
 	</a>
-	  <blockquote><b>
+	  <p><b>
 		Show us screenshots of your shaded cloth from <i>scene/sphere.json</i> in its final resting state 
 		on the sphere using the default <code>ks = 5000</code> as well as with <code>ks = 500</code> and <code>ks = 50000</code>. 
-	  </b></blockquote>
+	  </b></p>
 	  
 	  <div align="middle">
 		<table style="width:100%">
@@ -198,20 +198,26 @@
 		<figcaption>ks = 50,000 N/m</figcaption>
 	  </div>
   
-	  <blockquote><b>
-		<small>Describe the differences in the results.</small>
-	  </b></blockquote>
+	  <p><b>
+		Describe the differences in the results.
+	  </b></p>
   
 	  <p>
-		TODO
+		The parameter ks represents the stiffness of the cloth material. The higher the value of ks, the stiffer the cloth will be.
+<ul><li>
+With ks = 500 N/m, the cloth will be relatively soft and will form more wrinkles and folds. The shading will be smoother and more diffuse.</li>
+<li>
+With ks = 5,000 N/m, the cloth will be stiffer and will form fewer wrinkles and folds. The shading will be more pronounced, with sharper shadows and highlights.</li>
+<li>
+With ks = 50,000 N/m, the cloth will be extremely stiff and will form noticeably even less wrinkles and folds. The cloth may even appear somewhat metallic or plastic-like in texture.</li>
+</ul>
+Overall, the value of ks has a significant impact on the appearance and behavior of the cloth, affecting both its shape and the way light interacts with its surface.
 	  </p>
   
   
-	  <blockquote><b>
-		Show us a screenshot of your shaded cloth lying peacefully at rest on the plane. 
-		If you haven't by now, feel free to express your colorful creativity with the cloth! 
-		(You will need to complete the shaders portion first to show custom colors.)
-	  </b></blockquote>
+	  <p><b>
+		Show a screenshot of shaded cloth lying peacefully at rest on the plane. 
+		 </b></p>
   
 	  <div align="middle">
 		<img src="images/t3-shaded-cloth-at-rest.png" align="middle" width="100%" />
@@ -233,58 +239,71 @@
 		<table style="width:100%">
 		  <tr align="center">
 			<td>
-			  <img src="images/t4-collision-1.png" align="middle" width="300vw" />
+			  <img src="images/t4-collision-1.png" align="middle" width="450vw" />
 			  <figcaption>Self collision 1</figcaption>
 			</td>
 			<td>
-			  <img src="images/t4-collision-2.png" align="middle" width="300vw" />
+			  <img src="images/t4-collision-2.png" align="middle" width="450vw" />
 			  <figcaption>Self collision 2</figcaption>
 			</td>
 			<td>
-			  <img src="images/t4-collision-3.png" align="middle" width="300vw" />
-			  <figcaption>Self collision 3</figcaption>
-			</td>
-			<td>
 		  </tr>
+		  <tr align="center">
+		  <td>
+			<img src="images/t4-collision-3.png" align="middle" width="450vw" />
+			<figcaption>Self collision 3</figcaption>
+		  </td>
+		  <td>
+			<img src="images/t4-collision-4.png" align="middle" width="450vw" />
+			<figcaption>Self collision 4</figcaption>
+		  </td>
+		</tr>
 		</table>
 	  </div>
   
   
-	  <blockquote><b>
-		Vary the <code>density</code> as well as <code>ks</code> 
+	  <p><b>
+		Vary the <code>ks</code> as well as <code>density</code> 
 		
 		and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself.
-	  </b></blockquote>
+	  </b></p>
+	  <p>
+		Increasing the spring stiffness of the cloth makes it more resistant to deformation and less likely to fold or bend. This can make the cloth appear more rigid and less flexible, which can result in fewer self-collisions. In the screenshots below, Ks has been increased to 7,500 N/m, causing the cloth to be more rigid and less prone to folding. Compared that to when Ks is 1,000 N/m, we could clearly see that the cloth is easier to fold, resulting in more self-collisions.
+	  </p>
+	  <table style="width:100%">
+	  <tr align="center">
+		<td>
+			<img src="images/t4-collision-low-ks.png" align="middle" width="450vw" />
+			<figcaption>ks = 1,000 N/m</figcaption>
+		</td>
+		<td>
+			<img src="images/t4-collision-high-ks.png" align="middle" width="450vw" />
+			<figcaption>ks = 7,500 N/m</figcaption>
+		</td>
+	  </tr>
+	 </table>
+
+	 <p>When we increase the density of the point masses, it has a comparable impact on the cloth to reducing the spring constant since the distance between two points greatly increased. In the screenshots below, when density is reduced to 1 g/cm^2, the cloth appeared more rigid and less prone to folding, similar to high Ks screenshot from above. Compared that to when density is 50 g/cm^2, we could clearly see that the cloth is easier to fold, resulting in more self-collisions.
+	</p>
+	  
   
 	  <div align="middle">
 		<table style="width:100%">
 		  <tr align="center">
 			<td>
-				<img src="images/t4-density-1.png" align="middle" width="400px" />
-				<figcaption>$\text{density} = 1$</figcaption>
+				<img src="images/t4-collision-low-density.png" align="middle" width="450vw" />
+				<figcaption>Density = 1 g/cm^2</figcaption>
 				
 			</td>
 			<td>
-				<img src="images/t4-density-2.png" align="middle" width="400px" />
-				<figcaption>$\text{density} = 50$</figcaption>
-			</td>
-		  </tr>
-		  <tr align="center">
-			<td>
-				<img src="images/t4-ks-1.png" align="middle" width="400px" />
-				<figcaption>$\text{ks} = 1,000$</figcaption>
-			</td>
-			<td>
-				<img src="images/t4-ks-2.png" align="middle" width="400px" />
-				<figcaption>$\text{ks} = 7,500$</figcaption>
+				<img src="images/t4-collision-high-density.png" align="middle" width="450vw" />
+				<figcaption>Density = 50 g/cm^2</figcaption>
 			</td>
 		  </tr>
 		</table>
 	  </div>
-  
-	  <p>
-		TODO
-	  </p>
+	  
+	 
   
   
   
